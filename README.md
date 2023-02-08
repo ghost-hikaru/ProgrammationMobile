@@ -1,6 +1,10 @@
 # <p align="center">Programmation mobile</p>
   
 Vous retrouverez sur ce dépôt l'ensemble des TP réalisé lors du module programmation mobile.  Ces TP sont des TP de l'ESIR réalisé en 2eme année.
+Chaque dossier contient un TP différent et toutes les informations nécessaires pour le compiler et le faire fonctionner.
+
+
+
 
 ## 🛠️ Tech Stack
 - [Java](https://www.java.com/fr/)
