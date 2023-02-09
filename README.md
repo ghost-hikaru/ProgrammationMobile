@@ -9,7 +9,7 @@ Chaque dossier contient un TP différent et toutes les informations nécessaires
 ## 🛠️ Tech Stack
 - [Java](https://www.java.com/fr/)
 - [Kotlin](https://kotlinlang.org)
-- [AndoidStudio](https://www.google.com/search?client=safari&rls=en&q=android+studio&ie=UTF-8&oe=UTF-8)
+- [AndroidStudio](https://www.google.com/search?client=safari&rls=en&q=android+studio&ie=UTF-8&oe=UTF-8)
     
 ## 🛠️ Install project    
 ```bash
