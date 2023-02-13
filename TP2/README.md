@@ -1,4 +1,4 @@
-# TP sur le développement de layout Android
+# TP2 sur le développement de layout Android
 ## Introduction
 Il existe plusieurs façon sur androidStudio de réaliser un layout. On retrouve 3 façons principales :
 - Les LinearLayout
