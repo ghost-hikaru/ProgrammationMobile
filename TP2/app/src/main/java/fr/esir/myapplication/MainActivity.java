@@ -30,10 +30,10 @@ public class MainActivity extends Activity {
         departementsQ6.add("Ille-et-Vilaine - Bretagne");
         departementsQ6.add("Morbihan - Bretagne");*/
 
-        pop.put("Côtes-d'Armor", "598 814");
-        pop.put("Finistère", "909 028");
-        pop.put("Ille-et-Vilaine", "1 060 199");
-        pop.put("Morbihan", "750 863");
+        pop.put("Côtes-d'Armor - Bretagne", "598 814");
+        pop.put("Finistère - Bretagne", "909 028");
+        pop.put("Ille-et-Vilaine - Bretagne", "1 060 199");
+        pop.put("Morbihan - Bretagne", "750 863");
 
         List<String> departementsName = new ArrayList<String>(pop.keySet());
         ArrayList<String> departementsList = new ArrayList<String>(pop.keySet());
