@@ -5,7 +5,7 @@ Il existe plusieurs façon sur androidStudio de réaliser un layout. On retrouve
 - Les RelativeLayout
 - Les ConstraintLayout
 
-Chacune de ses méthodes à ses particularités, avec ses avantages et ses inconvénients. Dans tout les cas la réalisation d’un layout sous AndroidStudio se fait en écrivant de l’XML. Dans ce TP nous allons voir et expérimenter 2 types de layouts (LinearLayout et RelativeLayout). Enfin on verra une application de création de layout avec une manipulation de liste.
+Chacune de ses méthodes à ses particularités, avec ses avantages et ses inconvénients. Dans tout les cas la réalisation d’un layout sous AndroidStudio se fait en écrivant de l’XML. Dans ce TP nous allons voir et expérimenter 2 types de layouts (LinearLayout et RelativeLayout). Nous présenterons rapidement un troisième type qui n'était pas dans le TP mais qui nous semble important. Enfin nous verrons une application de création de layout avec une manipulation de liste.
 
 ## Manipulation des LinearLayout
 	
@@ -142,7 +142,7 @@ Le ConstraintLayout est un Layout de plus en plus populaire pour les développeu
 
 ## Application 
 
-Pour ce qui est de l’application, nous devons construire une mini application qui ne contiendra qu’une seule vue. Cette vue sera une simple liste qui contiendra la liste des départements breton. De plus lorsqu’un clique est effectué sur la liste, une pop-up doit alors apparaître avec un texte indiquant le nombre d’habitant que contient le département.
+Pour ce qui est de l’application, nous devons construire une mini application qui ne contiendra qu’une seule vue. Cette vue sera une simple liste qui contiendra la liste des départements bretons. De plus lorsqu’un clic est effectué sur la liste, une pop-up doit alors apparaître avec un texte indiquant le nombre d’habitant que contient le département.
 Pour la réalisation du layout, nous avons décidé de faire un LinearLayout qui contiendra comme élément une listeview.
 
 ```xml
@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-Pour ce qui est de la pop-up, on vient définir sur notre listview, un écouteur (setOnItemClick) qui va gérer le click pour nous. On a plus qu’a définir l’action que l’on veut faire. Pour faire une pop-up nous décidons de déclarer une AlertDialogu.
+Pour ce qui est de la pop-up, on vient définir sur notre listview, un écouteur (setOnItemClick) qui va gérer le clic pour nous. On a plus qu’à définir l’action que l’on veut faire. Pour faire une pop-up nous décidons de déclarer une AlertDialogu.
 
 ```java
 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -216,7 +216,7 @@ Maintenant lorsque l’on clique sur un département, une pop-up s’affiche à 
 
 ## Conclusion
 	
-Nous avons pu a travers ce TP, voire 2 façons sur AndroidStudio de gérer nos Layouts. Egalements nous avons pu à travers une petite application, prendre la main et comprendre un peu mieux gérer nos Layout avec java ainsi que de créer des pop-up.
+Nous avons pu, à travers ce TP, voir 2 façons sur AndroidStudio de gérer nos Layouts. Nous avons également souligner qu'une autre façon existe. Enfin, nous avons pu, à travers une petite application, prendre la main et comprendre un peu mieux comment gérer nos Layouts avec Java ainsi que de créer des pop-up.
 
 ## 🙇 Author
 #### Mathurin Melvin
