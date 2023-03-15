@@ -1,7 +1,7 @@
 # TP3 sur le data storage
 ## Introduction
-Durant ce tp, nous allons apprendre à manipuler les fichiers avec AndoidStudio. Le but est de pouvoir créer ainsi que de manipuler des fichiers et de les stockers dans la mémoire interne du téléphone. 
-Tout au long de ce TP, nous allons utilisé l'API File fourni par Java. Cette API, nous servira afin d'effectuer diverse opération sur les fichiers.
+Durant ce tp, nous allons apprendre à manipuler les fichiers avec AndroidStudio. Le but est de pouvoir créer ainsi que de manipuler des fichiers et de les stocker dans la mémoire interne du téléphone. 
+Tout au long de ce TP, nous allons utiliser l'API File fourni par Java. Cette API, nous servira afin d'effectuer diverses opérations sur les fichiers.
 
 ## Manipulation de fichier
 
@@ -17,7 +17,7 @@ public void createCustomFile(String filenameCustom){
     }
 }
 ```
-Pour ce qui est de la création on vient juste créer un nouveau File. Celui-ci prenant en paramètre, l'endroit où le fichier doit être créer et comme second paramètre le nom du fichier. Enfin on appelle la méthode ```createNewFile()``` de l'API File. Afin de faciliter la programmation et d'éviter de la redondance de code, nous avons créer une méthode prenant en paramètre le nom du fichier à créer.
+Pour ce qui est de la création on vient juste de créer un nouveau File. Celui-ci prenant en paramètre, l'endroit où le fichier doit être créer et comme second paramètre le nom du fichier. Enfin on appelle la méthode ```createNewFile()``` de l'API File. Afin de faciliter la programmation et d'éviter de la redondance de code, nous avons créé une méthode prenant en paramètre le nom du fichier à créer.
 
 ### Ecriture dans un fichier
 
@@ -32,7 +32,7 @@ public void write(String message,String filename){
     }
 }
 ```
-Pour ce qui est de l'écriture dans un fichier, on vient utiliser l'API ```FileOutputStream``` qui possède la méthode ```write(message)```. Cependant afin que l'écriture dans le fichier se fasse correctement, il nous faut convertir le message qui est une ```String``` en ```Bytes```à l'aide de la méthode ```getBytes()```. Comme pour la création de fichier, nous avons créer une méthode permettant d'éviter la redondance de code. Cette méthode vient prendre en paramètre le message à écrire dans le fichier et comme second paramètre le nom du fichier.
+Pour ce qui est de l'écriture dans un fichier, on vient utiliser l'API ```FileOutputStream``` qui possède la méthode ```write(message)```. Cependant afin que l'écriture dans le fichier se fasse correctement, il nous faut convertir le message qui est une ```String``` en ```Bytes```à l'aide de la méthode ```getBytes()```. Comme pour la création de fichier, nous avons créé une méthode permettant d'éviter la redondance de code. Cette méthode vient prendre en paramètre le message à écrire dans le fichier et comme second paramètre le nom du fichier.
 
 ### Lecture d'un fichier et affichage dans un Layout
 
@@ -65,7 +65,7 @@ public void getFiles(ListView listView){
         listView.setAdapter(adapter);
 }
 ```
-Afin d'afficher la liste des fichiers créer dans la dernière question, nous avons fait une méthode qui récupère la liste des fichiers de la mémoire interne de l'application et nous venons mettre à jours notre ListView ensuite.
+Afin d'afficher la liste des fichiers créer dans la dernière question, nous avons fait une méthode qui récupère la liste des fichiers de la mémoire interne de l'application et nous venons mettre à jour notre ListView ensuite.
 
 ### Suppression du fichier
 
@@ -81,11 +81,11 @@ public boolean deleteFile(String fileToDelete){
 Pour supprimer un fichier, nous avons fait une méthode qui permet d'éviter une redondance de code. Cette méthode prend comme paramètre le fichier à supprimer. Ensuite nous appellons la méthode ```delete()``` de l'API ```File()```.
 
 ## Manipulation de fichier avec une ListeView
-Afin de manipuler l'ensemble des méthodes vu précédemment, il nous ai demandé de réalisé un petit gestionnaire de fichier présent dans la mémoire interne de l'application. Pour ce faire nous avons définis notre layout, celui-ci est un LinearLayout composé de :
+Afin de manipuler l'ensemble des méthodes vu précédemment, il nous est demandé de réaliser un petit gestionnaire de fichier présent dans la mémoire interne de l'application. Pour ce faire nous avons défini notre layout, celui-ci est un LinearLayout composé de :
 
-- EditTexte :  Il permettra de creer le fichier dont le nom sera marqué.
+- EditTexte :  Il permettra de créer le fichier dont le nom sera marqué.
 - LinearLayout : Ce linearlayout est là pour placer 2 boutons horizontalement
-- TextView : Permet de faire la jonction entre les buttons et la liste en dessous
+- TextView : Permet de faire la jonction entre les boutons et la liste en dessous
 - ListView : Composer des fichiers qui sont dans la mémoire interne de l'application
 
 Voici le code du Layout :
@@ -148,8 +148,8 @@ EditText editText = (EditText) findViewById(R.id.editText_text);
 ListView listView = (ListView) findViewById(R.id.listview_file);
 Button buttonOk = (Button) findViewById(R.id.button_ok);
 ```
-Ensuite on vient établir pour chacun des attributs leurs actions associés. Cependant, avant tout sa, on vient chercher les potentiels fichiers qui existerait pas en appelant la méthode ```getFiles()```. 
-A noter que à chaque fois que l'on crée ou que l'on supprimes un fichier, on vient appellé la méthode ```getFiles()``` afin de mettre à jour la liste.
+Ensuite on vient établir pour chacun des attributs leurs actions associés. Cependant, avant tout cela, on vient chercher les potentiels fichiers qui n'existerait pas en appelant la méthode ```getFiles()```. 
+A noter qu'à chaque fois que l'on crée ou que l'on supprime un fichier, on vient appeler la méthode ```getFiles()``` afin de mettre à jour la liste.
 
 ```java
 buttonOk.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,7 @@ buttonOk.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-Pour la suppression de fichier, nous avons décidé que lorsque l'on a un appui long sur la liste cela ouvre une boite de dialogue qui demande à l'utilisateur si il veut oui ou non supprimé le fichier. Le simple clique est quant à lui défini pour modifier le contenue du fichier. Nous avons fait ce choix car cela permet de ne pas perdre d'espace sur notre écran. Nous sommes cependant conscient que ce n'est peut être pas intuitif pour les utilisteurs.
+Pour la suppression de fichier, nous avons décidé que lorsque l'on a un appui long sur la liste cela ouvre une boite de dialogue qui demande à l'utilisateur s'il veut oui ou non supprimer le fichier. Le simple clic est quant à lui défini pour modifier le contenu du fichier. Nous avons fait ce choix car cela permet de ne pas perdre d'espace sur notre écran. Nous sommes cependant conscient que ce n'est peut être pas intuitif pour les utilisateurs.
 
 ```java
 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -217,13 +217,13 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 ![Pop_up_suppr](./assets/popup_suppr.png)
         
 ## Features supplémentaire
-Ayant finis en avance, nous avons dévelloper des features supplémentaires :
+Ayant fini en avance, nous avons développer des features supplémentaires :
 
 - Navigation entre les différentes activités
 - Modification du contenu d'un fichier
 
 ### Navigation entre les différentes activitées 
-Afin que la navigabilité soit plus fluide, nous avons décidés de relié tout les activités entre elle. Pour cela, nous avons une activité principal qui permet d'accéder au 3 activités réalisées dans ce TP. Nous avons donc 3 classes ( 4 si on compte la classe MainActivity), afin d'y pouvoir naviguer, toute ces classes sont déclarées comme des activitées dans le fichier ```AndroidManifest```. Ensuite nous avons déclarer des ```intent``` qui nous permis avec des boutons de naviguer entre les acitvités. Afin de revenir à l'activité principal, chaque activitées possède un bouton de retour qui termine l'activité.
+Afin que la navigabilité soit plus fluide, nous avons décidés de relier toutes les activités entre elle. Pour cela, nous avons une activité principale qui permet d'accéder aux 3 activités réalisées dans ce TP. Nous avons donc 3 classes ( 4 si on compte la classe MainActivity), afin d'y pouvoir naviguer, toutes ces classes sont déclarées comme des activitées dans le fichier ```AndroidManifest```. Ensuite nous avons déclaré des ```intent``` qui nous permet avec des boutons de naviguer entre les activités. Afin de revenir à l'activité principal, chaque activitées possède un bouton de retour qui termine l'activité.
 
 ```java
 firstAct.setOnClickListener(new View.OnClickListener() {
@@ -245,8 +245,8 @@ buttonBack.setOnClickListener(new View.OnClickListener() {
 ![Pop_up_modif](./assets/main_act.png)
 
 ### Modification du contenu d'un fichier
-Comme dis précédemment, nous avons fait le choix d'attibuer le ```setOnItemLongClickListener``` de la listeview à la suppression du fichier. Cela nous laissait le ```setOnItemClickListener``` libre. Nous avons donc décidé de l'utiliser comme modificateur du contenue du ficher sélectionner.
-Pour cela nous nous sommes aidé de ChatGPT, afin de savoir si il était possible de mettre une EditText dans une boite de dialogue. Après sa nous l'avons programmé comme montré ci-dessus.
+Comme dit précédemment, nous avons fait le choix d'attibuer le ```setOnItemLongClickListener``` de la listeview à la suppression du fichier. Cela nous laissait le ```setOnItemClickListener``` libre. Nous avons donc décidé de l'utiliser comme modificateur du contenu du ficher sélectionner.
+Pour cela nous nous sommes aidé de ChatGPT, afin de savoir si il était possible de mettre une EditText dans une boite de dialogue. Après cela nous l'avons programmé comme montré ci-dessus.
 
 ![Pop_up_modif](./assets/popUp_modif.png)
 
