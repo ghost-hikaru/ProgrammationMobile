@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="name_categories">
+        <item>Catégorie capteurs</item>
+        <item>Catégoires mouvement sur l\'écran</item>
+        <item>Catégorie questions/réponses</item>
+    </string-array>
+</resources>

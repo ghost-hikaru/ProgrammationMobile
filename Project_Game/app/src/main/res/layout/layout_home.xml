@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title_textview_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jeux Pair à Pair"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/button_play_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 joueurs" />
+
+            <Button
+                android:id="@+id/button_train_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 joueurs"
+                android:layout_marginStart="75dp"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button_add_challenge_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter des défis"
+            android:layout_marginTop="25dp"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/copyright_textview_home"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Copyright : MATHURIN Melvin et VOISIN Enzo" />
+
+    <TextView
+        android:id="@+id/top_right_textview_home"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bouton Volume" />
+
+
+</RelativeLayout>

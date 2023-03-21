@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title_textview_add_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajout d'un défis"
+        android:layout_gravity="center"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/cat_edittext_add_challenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Catégorie"/>
+
+    <TextView
+        android:id="@+id/cat_info_textview_add_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Concerant la catégorie veuillez remplir avec un des champs suivant :\n -Capteurs\n -Mouvements\n -Questions\n"/>
+
+
+    <EditText
+        android:id="@+id/question_edittext_add_challenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Question" />
+
+    <EditText
+        android:id="@+id/answer1_edittext_add_challenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Réponse" />
+
+    <Button
+        android:id="@+id/submit_button_add_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Ajouter le défi"/>
+
+</LinearLayout>
