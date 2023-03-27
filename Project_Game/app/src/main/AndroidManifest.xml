@@ -26,6 +26,7 @@
         <activity android:name=".AddChallengeActivity" />
         <activity android:name=".SettingGameActivity" />
         <activity android:name=".OnePlayerGameActivity"/>
+        <activity android:name=".EndGameActivity"/>
     </application>
 
 </manifest>

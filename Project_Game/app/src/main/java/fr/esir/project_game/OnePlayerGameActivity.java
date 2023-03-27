@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +21,8 @@ import java.util.Random;
 public class OnePlayerGameActivity extends Activity {
     String player_lead = "leaderboard.txt";
     String challenge_file = "challenge.csv";
+
+    String defi_file;
     TextView text_name_player;
     TextView text_score_player;
     TextView content_defi;
@@ -30,19 +31,21 @@ public class OnePlayerGameActivity extends Activity {
     Player currentPlayer;
     String current_name;
     int current_score;
-    Defis current_defi;
+    Defi current_defi;
+
+    String current_defi_string = "Défi n° ";
+    int current_defi_id = 1;
+    TextView text_number_defi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_training);
-
+        defi_file = this.read();
         Intent intent = getIntent();
         current_name = intent.getStringExtra("PLAYER_NAME");
         current_score = intent.getIntExtra("PLAYER_SCORE",0);
-
         initAff();
-
         treatmentAnswer();
     }
 
@@ -52,13 +55,16 @@ public class OnePlayerGameActivity extends Activity {
 
         text_score_player = (TextView) findViewById(R.id.scorePlayer_textview_training);
 
+        text_number_defi = (TextView) findViewById(R.id.title_defi_textview_training);
+        text_number_defi.setText(current_defi_string+String.valueOf(current_defi_id++));
+
         if(current_score<10){
             text_score_player.setText("0"+String.valueOf(current_score));
         }else{
             text_score_player.setText(String.valueOf(current_score));
         }
 
-        current_defi = recupDefis();
+        current_defi = recupDefi();
         String affQuestion = "Question :\n"+current_defi.getQuestion();
 
         content_defi = (TextView) findViewById(R.id.content_defi_textview_training);
@@ -86,8 +92,17 @@ public class OnePlayerGameActivity extends Activity {
                 builder.setPositiveButton("Question suivante", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Mettre a jour les scores et appeler le
-                        // défi suivant
+                        if (current_defi_id > 3){
+                            Intent intent = new Intent(OnePlayerGameActivity.this, EndGameActivity.class);
+                            intent.putExtra("PLAYER_NAME", current_name);
+                            intent.putExtra("PLAYER_SCORE", current_score);
+                            startActivity(intent);
+                        }
+                        else {
+                            // défi suivant
+                            ((EditText) findViewById(R.id.response_edittext_training)).setText("");
+                            initAff();
+                        }
                     }
                 });
                 builder.show();
@@ -95,28 +110,15 @@ public class OnePlayerGameActivity extends Activity {
         });
 
     }
-
-    public Defis recupDefis(){
-        Defis nextdefi = new Defis("","","",null);
-        // Récupération de tout les défis sous forme de string
+    public Defi recupDefi(){
         String AllDefis  = read();
-        // transformation en tableau --> 1 case = 1 défis
-        List<String> listDefis = new ArrayList<>();
-        listDefis = Arrays.asList(AllDefis.split(";"));
-        // on choisit un défis au hasard
-        int index = randomInt(0,listDefis.size()-1);
-        // on récupère le défis
-        List<String> defi = new ArrayList<>();
-        defi = Arrays.asList(listDefis.get(index).split(","));
-        // Initialisation du défis
-        nextdefi.setCategorie(defi.get(0));
-        nextdefi.setQuestion(defi.get(1));
-        nextdefi.setAnswer(defi.get(2));
-
-        return nextdefi;
+        Defi defi = new Defi_Questions(this, AllDefis);
+        defi.LoadDefi();
+        return defi;
     }
 
     public String read(){
+        System.out.println("Début de la lecture du fichier");
         File file = new File(getFilesDir() +"/" + challenge_file);
         StringBuilder sb = new StringBuilder();
         String st;
@@ -127,12 +129,9 @@ public class OnePlayerGameActivity extends Activity {
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println("Fin de la lecture du fichier");
+        System.out.println("Contenu du fichier : "+sb.toString());
         return sb.toString();
-    }
-
-    public static int randomInt(int min, int max) {
-        Random rand = new Random();
-        return rand.nextInt((max - min) + 1) + min;
     }
 
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/finalscore_layout_endgame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/teal_700">
+
+        <TextView
+            android:id="@+id/finalscore_textview_endgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score final : default"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/player_icon_endgame"
+        android:layout_width="107dp"
+        android:layout_height="156dp"
+        android:layout_below="@+id/finalscore_layout_endgame"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/user" />
+
+    <TextView
+        android:id="@+id/namePlayer_textview_endgame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="player default"
+        android:layout_below="@+id/player_icon_endgame"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:id="@+id/result_layout_endgame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_below="@+id/namePlayer_textview_endgame"
+        android:background="@color/teal_700">
+
+        <TextView
+            android:id="@+id/result_textview_endgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Default"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/leaderbord_layout_endgame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_below="@+id/result_layout_endgame"
+        android:background="@color/teal_700">
+
+        <TextView
+            android:id="@+id/leaderbord_textview_endgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Default"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:id="@+id/leaderbord_listview_endgame"
+            android:layout_below="@+id/leaderbord_textview_endgame"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/return_button_endgame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leaderbord_layout_endgame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:text="Retour au menu" />
+
+</RelativeLayout>
