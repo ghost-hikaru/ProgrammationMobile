@@ -33,6 +33,10 @@ public class OnePlayerGameActivity extends Activity {
     int current_score;
     Defi current_defi;
 
+    String current_defi_string = "Défi n° ";
+    int current_defi_id = 1;
+    TextView text_number_defi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,9 @@ public class OnePlayerGameActivity extends Activity {
         text_name_player.setText(current_name);
 
         text_score_player = (TextView) findViewById(R.id.scorePlayer_textview_training);
+
+        text_number_defi = (TextView) findViewById(R.id.title_defi_textview_training);
+        text_number_defi.setText(current_defi_string+String.valueOf(current_defi_id++));
 
         if(current_score<10){
             text_score_player.setText("0"+String.valueOf(current_score));
@@ -85,9 +92,21 @@ public class OnePlayerGameActivity extends Activity {
                 builder.setPositiveButton("Question suivante", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // défi suivant
-                        ((EditText) findViewById(R.id.response_edittext_training)).setText("");
-                        initAff();
+                        if (current_defi_id > 3){
+                            Intent intent = new Intent(OnePlayerGameActivity.this, EndGameActivity.class);
+                            /**intent.putExtra("PLAYER_NAME", player.getName_player());
+                            intent.putExtra("PLAYER_NAME", player.getName_player());
+                            intent.putExtra("PLAYER_NAME", player.getName_player());
+                            intent.putExtra("PLAYER_NAME", player.getName_player());
+                            intent.putExtra("PLAYER_NAME", player.getName_player());
+                             */
+                            startActivity(intent);
+                        }
+                        else {
+                            // défi suivant
+                            ((EditText) findViewById(R.id.response_edittext_training)).setText("");
+                            initAff();
+                        }
                     }
                 });
                 builder.show();
