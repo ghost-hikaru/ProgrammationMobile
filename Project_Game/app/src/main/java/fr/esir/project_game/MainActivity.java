@@ -4,6 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,11 +38,13 @@ public class MainActivity extends Activity {
         Button train_but = (Button) findViewById(R.id.button_train_home);
         Button challenge_but = (Button) findViewById(R.id.button_add_challenge_home);
 
+
         play_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SettingGameActivity.class);
-                startActivity(intent);
+
+                //Intent intent = new Intent(MainActivity.this, SettingGameActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -83,6 +90,7 @@ public class MainActivity extends Activity {
         text.setText(ShowContent());
 
     }
+
 
     public void SetFiles() {
         String[] files = this.fileList();
@@ -159,4 +167,24 @@ public class MainActivity extends Activity {
         }
         return false;
     }
+
 }
+
+
+/*
+private MediaPlayer player;
+// dans le Oncreate
+player = null;
+/////
+if(player == null){
+    player = MediaPlayer.create(MainActivity.this, R.raw.defeat_sound);
+}
+player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        player.release();
+        player=null;
+    }
+});
+player.start();
+ */
