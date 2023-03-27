@@ -94,12 +94,8 @@ public class OnePlayerGameActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (current_defi_id > 3){
                             Intent intent = new Intent(OnePlayerGameActivity.this, EndGameActivity.class);
-                            /**intent.putExtra("PLAYER_NAME", player.getName_player());
-                            intent.putExtra("PLAYER_NAME", player.getName_player());
-                            intent.putExtra("PLAYER_NAME", player.getName_player());
-                            intent.putExtra("PLAYER_NAME", player.getName_player());
-                            intent.putExtra("PLAYER_NAME", player.getName_player());
-                             */
+                            intent.putExtra("PLAYER_NAME", current_name);
+                            intent.putExtra("PLAYER_SCORE", current_score);
                             startActivity(intent);
                         }
                         else {
