@@ -54,20 +54,20 @@ public class Player {
 
     }
 
-    public void AddNewPlayer(){
+    /**
+     * Ajoute un nouveau joueur dans le leaderboard
+     * Si le joueur existe déjà, on met à jour son score
+     * Sinon on ajoute le joueur
+     * @throws IOException
+     */
+    public void AddNewPlayer() throws IOException {
+        Leaderbord leaderbord = new Leaderbord(Ctx);
         if(existe(this.getName_player()) == null){
-            String oldContent = read();
-            try (FileOutputStream fos = Ctx.openFileOutput(player_lead, Context.MODE_PRIVATE)) {
-                String newContent = oldContent + this;
-                fos.write(newContent.getBytes());
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            leaderbord.addPlayer(this.getName_player(), this.getScore_player());
+
         }else{
-            this.setName_player(existe(this.getName_player()).getName_player());
-            this.setScore_player(existe(this.getName_player()).getScore_player());
+            Player player = existe(this.getName_player());
+            leaderbord.updateScore(player.getName_player(), this.getScore_player());
         }
     }
 
@@ -126,29 +126,5 @@ public class Player {
             }
         }
         return null;
-    }
-
-    // Mettre à jour le score
-    public void updatePlayer(int indice){
-        String allPlayer  = read();
-        // transformation en tableau --> 1 case = 1 player
-        List<String> listPlayer = new ArrayList<>();
-        listPlayer = Arrays.asList(allPlayer.split(";"));
-
-        for(int i=0;i<listPlayer.size();i++){
-            List<String> player = new ArrayList<>();
-            player = Arrays.asList(listPlayer.get(i).split(","));
-
-            if(player.get(0)== this.getName_player()){
-                if(indice==1){
-                    // On fait +1 au score
-
-                }else{
-                    // on fait -1 au score
-                    //Integer.parseInt(player.get(1)) = Integer.parseInt(player.get(1)) - 1;
-                }
-                break;
-            }
-        }
     }
 }

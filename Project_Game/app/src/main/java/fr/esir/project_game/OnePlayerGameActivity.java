@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,7 @@ public class OnePlayerGameActivity extends Activity {
         defi_file = this.read();
         Intent intent = getIntent();
         current_name = intent.getStringExtra("PLAYER_NAME");
-        current_score = intent.getIntExtra("PLAYER_SCORE",0);
+        current_score = 0;
         initAff();
         treatmentAnswer();
     }
@@ -93,6 +94,14 @@ public class OnePlayerGameActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (current_defi_id > 3){
+                            Player player = new Player(current_name, current_score, OnePlayerGameActivity.this);
+                            try {
+                                player.AddNewPlayer();
+                            } catch (IOException e) {
+                                System.out.println("Erreur lors de l'écriture du fichier");
+                                throw new RuntimeException(e);
+                            }
+
                             Intent intent = new Intent(OnePlayerGameActivity.this, EndGameActivity.class);
                             intent.putExtra("PLAYER_NAME", current_name);
                             intent.putExtra("PLAYER_SCORE", current_score);

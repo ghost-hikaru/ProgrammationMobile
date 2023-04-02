@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Project_Game</string>
+    <string name="retour_au_menu">Retour au menu</string>
+    <string name="score_final_default">Score final : default</string>
+    <string name="player_default">player default</string>
+    <string name="score">Score</string>
+
 </resources>

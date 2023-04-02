@@ -62,15 +62,9 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name_player = editText_dialog.getText().toString();
-                        System.out.println(name_player);
-
-                        Player player = new Player(name_player,MainActivity.this);
-                        player.AddNewPlayer();
 
                         Intent intent = new Intent(MainActivity.this, OnePlayerGameActivity.class);
-                        intent.putExtra("PLAYER_NAME", player.getName_player());
-                        intent.putExtra("PLAYER_SCORE", player.getScore_player());
-
+                        intent.putExtra("PLAYER_NAME",name_player);
                         startActivity(intent);
                     }
                 });
@@ -161,7 +155,7 @@ public class MainActivity extends Activity {
     }
 
     public boolean delete(){
-        File file = new File(this.getFilesDir(),chellenge_file);
+        File file = new File(this.getFilesDir(),player_lead);
         if(file.delete()){
             return true;
         }
