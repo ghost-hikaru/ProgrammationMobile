@@ -4,6 +4,7 @@
 
     <uses-sdk android:minSdkVersion="23" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -15,6 +16,8 @@
 
     <!-- Google Play filtering -->
     <uses-feature android:name="android.hardware.wifi.direct" android:required="true"/>
+    <uses-permission android:name="android.permission.ACCELEROMETER" />
+
 
     <application
         android:allowBackup="true"
@@ -38,8 +41,13 @@
         </activity>
         <activity android:name=".AddChallengeActivity" />
         <activity android:name=".SettingGameActivity" />
-        <activity android:name=".OnePlayerGameActivity"/>
         <activity android:name="fr.esir.wifi.WifiDirectActivity"/>
+        <activity android:name=".OnePlayerGameManager"/>
+        <activity android:name=".Defi_Questions"/>
+        <activity android:name=".EndGameActivity"/>
+        <activity android:name=".Defi_Secouer"/>
+
+    </application>
 
         <service android:enabled="true" android:name="fr.esir.wifi.FileTransferService" />
     </application>

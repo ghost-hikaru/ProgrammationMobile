@@ -5,15 +5,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class AddChallengeActivity extends Activity {
-    Defis newDefis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,28 @@ public class AddChallengeActivity extends Activity {
         EditText question = (EditText) findViewById(R.id.question_edittext_add_challenge);
         EditText answer_1 = (EditText) findViewById(R.id.answer1_edittext_add_challenge);
 
-        newDefis = new Defis(cat_edit.getText().toString(),question.getText().toString(),answer_1.getText().toString(),this);
-        newDefis.write();
+        String oldContent = read();
+        try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
+            String newContent = oldContent + cat_edit.getText().toString()+","+question.getText().toString()+","+answer_1.getText().toString().toLowerCase().replaceAll(" ","")+";";
+            fos.write(newContent.getBytes());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+    public String read(){
+        File file = new File(getFilesDir() +"/" + "challenge.csv");
+        StringBuilder sb = new StringBuilder();
+        String st;
+        try {
+            BufferedReader br= new BufferedReader(new FileReader(file));
+            while ((st = br.readLine()) != null)
+                sb.append(st);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }
