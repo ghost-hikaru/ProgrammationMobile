@@ -39,7 +39,7 @@ public class AddChallengeActivity extends Activity {
 
         String oldContent = read();
         try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
-            String newContent = oldContent + cat_edit.getText().toString()+","+question.getText().toString()+","+answer_1.getText().toString()+";";
+            String newContent = oldContent + cat_edit.getText().toString()+","+question.getText().toString()+","+answer_1.getText().toString().toLowerCase().replaceAll(" ","")+";";
             fos.write(newContent.getBytes());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -49,7 +49,6 @@ public class AddChallengeActivity extends Activity {
 
     }
     public String read(){
-        System.out.println("Début de la lecture du fichier");
         File file = new File(getFilesDir() +"/" + "challenge.csv");
         StringBuilder sb = new StringBuilder();
         String st;
@@ -60,8 +59,6 @@ public class AddChallengeActivity extends Activity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("Fin de la lecture du fichier");
-        System.out.println("Contenu du fichier : "+sb.toString());
         return sb.toString();
     }
 }

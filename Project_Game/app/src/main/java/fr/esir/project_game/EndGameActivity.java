@@ -3,6 +3,7 @@ package fr.esir.project_game;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ public class EndGameActivity extends Activity {
     TextView state;
     String text_score_string = "Score final : ";
     Button back_to_menu;
+    MediaPlayer mediaPlayer = null;
 
     /**
      * Called when the activity is first created.
@@ -44,6 +46,7 @@ public class EndGameActivity extends Activity {
         back_to_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer.stop();
                 Intent intent = new Intent(EndGameActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -70,9 +73,19 @@ public class EndGameActivity extends Activity {
         state = (TextView) findViewById(R.id.result_textview_endgame);
         if (intent.getIntExtra("PLAYER_SCORE", 0) > 2) {
             state.setText("Bravo, vous avez gagné !");
+            mediaPlayer = MediaPlayer.create(EndGameActivity.this, R.raw.victory);
         } else {
             state.setText("Dommage, vous avez perdu !");
+            mediaPlayer = MediaPlayer.create(EndGameActivity.this, R.raw.defeat_sound);
         }
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+                mediaPlayer=null;
+            }
+        });
+        mediaPlayer.start();
     }
 
     /**
