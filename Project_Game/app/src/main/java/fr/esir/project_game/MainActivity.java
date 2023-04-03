@@ -25,6 +25,7 @@ import java.io.IOException;
 public class MainActivity extends Activity {
     String player_lead = "leaderboard.txt";
     String chellenge_file = "challenge.csv";
+    private MediaPlayer mediaPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,15 @@ public class MainActivity extends Activity {
 
         //SetFiles();
         //delete();
-
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.music);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+                mediaPlayer=null;
+            }
+        });
+        mediaPlayer.start();
         Button play_but = (Button) findViewById(R.id.button_play_home);
         Button train_but = (Button) findViewById(R.id.button_train_home);
         Button challenge_but = (Button) findViewById(R.id.button_add_challenge_home);
@@ -62,8 +71,8 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name_player = editText_dialog.getText().toString();
-
-                        Intent intent = new Intent(MainActivity.this, OnePlayerGameActivity.class);
+                        mediaPlayer.stop();
+                        Intent intent = new Intent(MainActivity.this, OnePlayerGameManager.class);
                         intent.putExtra("PLAYER_NAME",name_player);
                         startActivity(intent);
                     }

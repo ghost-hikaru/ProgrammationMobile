@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCELEROMETER" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,8 +27,10 @@
         </activity>
         <activity android:name=".AddChallengeActivity" />
         <activity android:name=".SettingGameActivity" />
-        <activity android:name=".OnePlayerGameActivity"/>
+        <activity android:name=".OnePlayerGameManager"/>
+        <activity android:name=".Defi_Questions"/>
         <activity android:name=".EndGameActivity"/>
+        <activity android:name=".Defi_Secouer"/>
     </application>
 
 </manifest>

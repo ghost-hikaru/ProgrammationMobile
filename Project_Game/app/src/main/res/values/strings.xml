@@ -4,5 +4,6 @@
     <string name="score_final_default">Score final : default</string>
     <string name="player_default">player default</string>
     <string name="score">Score</string>
+    <string name="name_player">name_player</string>
 
 </resources>
