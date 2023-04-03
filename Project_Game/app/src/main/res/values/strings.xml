@@ -14,7 +14,6 @@
     <string name="group_owner_text">"Am I the Group Owner? "</string>
     <string name="label_me">ME</string>
     <string name="label_peers">PEERS</string>
-    <string name="app_name">Project_Game</string>
     <string name="retour_au_menu">Retour au menu</string>
     <string name="score_final_default">Score final : default</string>
     <string name="player_default">player default</string>

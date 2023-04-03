@@ -46,9 +46,6 @@
         <activity android:name=".Defi_Questions"/>
         <activity android:name=".EndGameActivity"/>
         <activity android:name=".Defi_Secouer"/>
-
-    </application>
-
         <service android:enabled="true" android:name="fr.esir.wifi.FileTransferService" />
     </application>
 </manifest>
