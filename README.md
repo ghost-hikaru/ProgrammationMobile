@@ -11,7 +11,7 @@ Chaque dossier contient un TP différent et toutes les informations nécessaires
 | [TP3](https://github.com/ghost-hikaru/ProgrammationMobile/tree/main/TP3)    | Gestion de fichier    | 
 | [TP4](https://github.com/ghost-hikaru/ProgrammationMobile/tree/main/TP4)    | Manipulation des capteurs    | 
 | [TP5](https://github.com/ghost-hikaru/ProgrammationMobile/tree/main/TP5)    | connexion entre 2 téléphones    | 
-| [TP6](https://github.com/ghost-hikaru/ProgrammationMobile/tree/main/TP6)    | A venir    | 
+| [Projet final](https://github.com/ghost-hikaru/ProgrammationMobile/tree/main/Project_Game)    | Jeu mobile pour Android  | 
 | [TP_flutter](https://github.com/ghost-hikaru/ProgrammationMobile/tree/main/)| Prise en main de flutter    | 
         
 
