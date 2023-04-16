@@ -24,15 +24,20 @@ public class OnePlayerGameManager extends Activity{
         current_score = intent.getIntExtra("PLAYER_SCORE", 0);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);
         nb_defi++;
-        //initAff();
+
         if (nb_defi > 3){
             launchEndGame();
         }
         else {
             Random rand = new Random();
-            if (rand.nextInt(2) == 0) {
+            int random = rand.nextInt(3);
+            if (random == 0) {
                 launchDefiQuestions();
-            } else {
+            }
+            else if (random == 1) {
+                launchDefiDraw();
+            }
+            else {
                 launchDefiSecouer();
             }
         }
@@ -40,7 +45,6 @@ public class OnePlayerGameManager extends Activity{
 
     public void launchEndGame(){
         // Start EndGame
-        System.out.println("EndGame");
         Player player = new Player(current_name, current_score, OnePlayerGameManager.this);
         try {
             player.AddNewPlayer();
@@ -55,7 +59,6 @@ public class OnePlayerGameManager extends Activity{
         startActivity(intent);
     }
     public void launchDefiQuestions(){
-        System.out.println("Questions");
         // Start Defi_Questions
         Intent intent = new Intent(OnePlayerGameManager.this, Defi_Questions.class);
         intent.putExtra("PLAYER_NAME", current_name);
@@ -65,9 +68,17 @@ public class OnePlayerGameManager extends Activity{
     }
 
     public void launchDefiSecouer(){
-        System.out.println("Shaking");
         // Start Shaking Game
         Intent intent = new Intent(OnePlayerGameManager.this, Defi_Secouer.class);
+        intent.putExtra("PLAYER_NAME", current_name);
+        intent.putExtra("PLAYER_SCORE", current_score);
+        intent.putExtra("CURRENT_DEFIS", nb_defi);
+        startActivity(intent);
+    }
+
+    public void launchDefiDraw(){
+        // Start Defi_Draw
+        Intent intent = new Intent(OnePlayerGameManager.this, Defi_Dessin.class);
         intent.putExtra("PLAYER_NAME", current_name);
         intent.putExtra("PLAYER_SCORE", current_score);
         intent.putExtra("CURRENT_DEFIS", nb_defi);
