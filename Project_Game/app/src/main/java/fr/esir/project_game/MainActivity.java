@@ -16,8 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import fr.esir.wifi.WifiDirectActivity;
-
 
 public class MainActivity extends Activity {
     String player_lead = "leaderboard.txt";
@@ -58,7 +56,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 mediaPlayer.stop();
-                Intent intent = new Intent(MainActivity.this, WifiDirectActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingGameActivity.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +75,9 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name_player = editText_dialog.getText().toString();
-                        mediaPlayer.stop();
+                        if (mediaPlayer != null) {
+                            mediaPlayer.stop();
+                        }
                         Intent intent = new Intent(MainActivity.this, OnePlayerGameManager.class);
                         intent.putExtra("PLAYER_NAME",name_player);
                         startActivity(intent);
