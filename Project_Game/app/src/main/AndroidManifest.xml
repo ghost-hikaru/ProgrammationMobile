@@ -18,6 +18,14 @@
     <uses-feature android:name="android.hardware.wifi.direct" android:required="true"/>
     <uses-permission android:name="android.permission.ACCELEROMETER" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <!-- Google Play filtering -->
+    <uses-feature android:name="android.hardware.wifi.direct" android:required="true"/>
+    <uses-permission android:name="android.permission.ACCELEROMETER" />
+
 
     <application
         android:allowBackup="true"

@@ -45,6 +45,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import fr.esir.project_game.R;
+import fr.esir.project_game.SettingGameActivity;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -125,7 +126,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         Uri uri = data.getData();
         TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         statusText.setText("Sending: " + uri);
-        Log.d(WifiDirectActivity.TAG, "Intent----------- " + uri);
+        Log.d(SettingGameActivity.TAG, "Intent----------- " + uri);
         Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
         serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
@@ -225,9 +226,9 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         protected String doInBackground(Void... params) {
             try {
                 ServerSocket serverSocket = new ServerSocket(8988);
-                Log.d(WifiDirectActivity.TAG, "Server: Socket opened");
+                Log.d(SettingGameActivity.TAG, "Server: Socket opened");
                 Socket client = serverSocket.accept();
-                Log.d(WifiDirectActivity.TAG, "Server: connection done");
+                Log.d(SettingGameActivity.TAG, "Server: connection done");
                 final File f = new File(context.getExternalFilesDir("received"),
                         "wifip2pshared-" + System.currentTimeMillis()
                         + ".jpg");
@@ -237,13 +238,13 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                     dirs.mkdirs();
                 f.createNewFile();
 
-                Log.d(WifiDirectActivity.TAG, "server: copying files " + f.toString());
+                Log.d(SettingGameActivity.TAG, "server: copying files " + f.toString());
                 InputStream inputstream = client.getInputStream();
                 copyFile(inputstream, new FileOutputStream(f));
                 serverSocket.close();
                 return f.getAbsolutePath();
             } catch (IOException e) {
-                Log.e(WifiDirectActivity.TAG, e.getMessage());
+                Log.e(SettingGameActivity.TAG, e.getMessage());
                 return null;
             }
         }
@@ -293,7 +294,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             out.close();
             inputStream.close();
         } catch (IOException e) {
-            Log.d(WifiDirectActivity.TAG, e.toString());
+            Log.d(SettingGameActivity.TAG, e.toString());
             return false;
         }
         return true;

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Defi_Secouer">
+    tools:context=".Defi_Secouer"
+    android:background="@color/grey">
 
     <RelativeLayout
         android:id="@+id/top_layout"
@@ -35,6 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name_player"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_pixel"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -45,6 +48,8 @@
             android:layout_height="wrap_content"
             android:text="00"
             android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:paddingRight="20dp"/>
@@ -70,6 +75,8 @@
             android:text="Défis n°Default"
             android:textSize="30sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
 
@@ -79,6 +86,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_defi_textview_shake"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
             android:layout_centerInParent="true"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
@@ -113,6 +122,8 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
         android:text="Progression : " />
 
     <TextView
@@ -124,6 +135,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
         android:text="0" />
     </RelativeLayout>
 

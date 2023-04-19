@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.esir.project_game.R;
+import fr.esir.project_game.SettingGameActivity;
 
 /**
  * A ListFragment that displays available peers on discovery and requests the
@@ -48,7 +49,7 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         return device;
     }
     private static String getDeviceStatus(int deviceStatus) {
-        Log.d(WifiDirectActivity.TAG, "Peer status :" + deviceStatus);
+        Log.d(SettingGameActivity.TAG, "Peer status :" + deviceStatus);
         switch (deviceStatus) {
             case WifiP2pDevice.AVAILABLE:
                 return "Available";
@@ -112,15 +113,16 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
     /**
      * Update UI for this device.
      *
-     * @param device WifiP2pDevice object
+     * @param //device WifiP2pDevice object
      */
-    public void updateThisDevice(WifiP2pDevice device) {
+    /*public void updateThisDevice(WifiP2pDevice device) {
         this.device = device;
         TextView view = (TextView) mContentView.findViewById(R.id.my_name);
         view.setText(device.deviceName);
         view = (TextView) mContentView.findViewById(R.id.my_status);
         view.setText(getDeviceStatus(device.status));
-    }
+    }*/
+
     @Override
     public void onPeersAvailable(WifiP2pDeviceList peerList) {
         if (progressDialog != null && progressDialog.isShowing()) {
@@ -130,7 +132,7 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         peers.addAll(peerList.getDeviceList());
         ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
         if (peers.size() == 0) {
-            Log.d(WifiDirectActivity.TAG, "No devices found");
+            Log.d(SettingGameActivity.TAG, "No devices found");
             return;
         }
     }

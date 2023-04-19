@@ -95,8 +95,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        TextView text = (TextView) findViewById(R.id.top_right_textview_home);
-        text.setText(ShowContent());
+        //TextView text = (TextView) findViewById(R.id.top_right_textview_home);
+        //text.setText(ShowContent());
 
     }
 

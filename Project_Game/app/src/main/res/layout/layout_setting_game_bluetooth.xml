@@ -10,6 +10,7 @@
         android:id="@+id/title_textview_setting_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Préparation de la partie"
         android:layout_gravity="center"
         android:textSize="28sp"
@@ -23,57 +24,26 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="@font/font_pixel"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:hint="Nom du joueur" />
 
-    <!--<TextView
-        android:id="@+id/info_player_textview_setting_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre de joueurs :"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <SeekBar
-            android:id="@+id/seekBar_player_setting_game"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:max="4"
-            android:progress="1" />
-
-        <TextView
-            android:id="@+id/nb_player_textview_setting_game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="right"
-            android:paddingRight="16dp"/>
-
-    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp">
 
         <Button
             android:id="@+id/p2POnOff_button_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
-            android:background="@drawable/ic_action_on_off"
+            android:background="@drawable/ic_icon_bluetooth"
             android:textColor="@color/white"
             />
 
@@ -83,6 +53,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:background="@drawable/ic_action_discover"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -91,29 +62,29 @@
         android:layout_height="178dp"
         android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/frag_list"
-            class="fr.esir.wifi.DeviceListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="176dp"
-            tools:layout="@layout/fragment_device_list">
-            <!-- Preview: layout=@layout/row_devices -->
-        </fragment>
+        <TextView
+            android:id="@+id/device_name_setting_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Device name"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
+            android:textStyle="bold" />
 
-        <fragment
-            android:id="@+id/frag_detail"
-            class="fr.esir.wifi.DeviceDetailFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/device_detail">
-            <!-- Preview: layout=@layout/device_detail -->
-        </fragment>
+        <ListView
+            android:id="@+id/player_bluetooth_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:id="@+id/beginGame_button_setting"
         android:textColor="@color/white"
         android:fontFamily="@font/font_pixel"
