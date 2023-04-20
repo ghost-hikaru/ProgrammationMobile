@@ -3,9 +3,12 @@ package fr.esir.project_game;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -18,6 +21,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +33,10 @@ import androidx.core.app.ActivityCompat;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 import fr.esir.wifi.DeviceDetailFragment;
 import fr.esir.wifi.DeviceListFragment;
@@ -178,7 +184,63 @@ public class SettingGameActivity extends Activity  {
         Toast.makeText(this,"Showing devices", Toast.LENGTH_SHORT).show();
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,list);
         listDevice.setAdapter(adapter);
+
+        listDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String deviceName = (String) adapterView.getItemAtPosition(i);
+                BluetoothDevice device = null;
+                for (BluetoothDevice bt : pairDevices){
+                    if (bt.getName().equals(deviceName)){
+                        device = bt;
+                        break;
+                    }
+                }
+                if (device != null) {
+                    UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); // UUID générique pour les connexions Bluetooth série
+                    try {
+                        BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid);
+                        socket.connect();
+                        BluetoothDevice finalDevice = device;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
+                                builder.setTitle("Bluetooth connection");
+                                builder.setMessage("Bluetooth connection successful with " + finalDevice.getName());
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // fermer la popup et effectuer une autre action si nécessaire
+                                    }
+                                });
+                                builder.create().show();
+                            }
+                        });
+                    } catch (IOException e) {
+                        // erreur lors de la connexion, gérer l'exception ici
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
+                                builder.setTitle("Bluetooth connection");
+                                builder.setMessage("Bluetooth connection lost");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // fermer la popup et effectuer une autre action si nécessaire
+                                    }
+                                });
+                                builder.create().show();
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
+
 
     public String getLocalBluetoothName(){
         if(BA == null){
