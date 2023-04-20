@@ -19,5 +19,6 @@
     <string name="player_default">player default</string>
     <string name="score">Score</string>
     <string name="name_player">name_player</string>
+    <string name="disponible_device_fr">Appareils disponibles :</string>
 
 </resources>

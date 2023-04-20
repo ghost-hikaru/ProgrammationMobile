@@ -55,7 +55,9 @@ public class MainActivity extends Activity {
         play_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayer.stop();
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                }
                 Intent intent = new Intent(MainActivity.this, SettingGameActivity.class);
                 startActivity(intent);
             }
