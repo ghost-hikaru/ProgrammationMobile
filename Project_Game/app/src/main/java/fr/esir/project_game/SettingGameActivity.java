@@ -31,10 +31,19 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -52,7 +61,6 @@ public class SettingGameActivity extends Activity  {
 
     private BluetoothAdapter BA;
     private Set<BluetoothDevice> pairDevices;
-
 
 
     /**
@@ -203,6 +211,19 @@ public class SettingGameActivity extends Activity  {
                         BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid);
                         socket.connect();
                         BluetoothDevice finalDevice = device;
+
+                        // Créer un fichier avec le nom du destinataire et la date courante
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                        String fileName = finalDevice.getName() + "_" + dateFormat.format(new Date()) + ".txt";
+                        File file = new File(getExternalFilesDir(null), fileName);
+                        FileWriter writer = new FileWriter(file);
+                        writer.write("Bonjour " + finalDevice.getName() + ",\n");
+                        writer.write("Je vous envoie ce fichier à " + dateFormat.format(new Date()) + ".\n");
+                        writer.close();
+
+                        // Envoyer le fichier via Bluetooth
+                        sendFile(finalDevice, file);
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -253,8 +274,62 @@ public class SettingGameActivity extends Activity  {
         return name;
     }
 
+    @SuppressLint("MissingPermission")
+    private void sendFile(BluetoothDevice device, File file) {
+        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+        try {
+            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid);
+            socket.connect();
 
+            OutputStream outputStream = socket.getOutputStream();
+            InputStream inputStream = new FileInputStream(file);
 
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            inputStream.close();
+            outputStream.close();
+            socket.close();
+
+            // Envoyer un message de réussite
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
+                    builder.setTitle("Bluetooth file transfer");
+                    builder.setMessage("File sent successfully to " + device.getName());
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // fermer la popup et effectuer une autre action si nécessaire
+                        }
+                    });
+                    builder.create().show();
+                }
+            });
+        } catch (IOException e) {
+            // erreur lors de l'envoi du fichier, gérer l'exception ici
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
+                    builder.setTitle("Bluetooth file transfer");
+                    builder.setMessage("File transfer failed to " + device.getName());
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // fermer la popup et effectuer une autre action si nécessaire
+                        }
+                    });
+                    builder.create().show();
+                }
+            });
+        }
+    }
 
 
 
