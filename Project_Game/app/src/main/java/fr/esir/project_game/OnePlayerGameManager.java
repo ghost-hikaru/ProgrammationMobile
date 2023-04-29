@@ -30,15 +30,20 @@ public class OnePlayerGameManager extends Activity{
         }
         else {
             Random rand = new Random();
-            int random = rand.nextInt(3);
-            if (random == 0) {
-                launchDefiQuestions();
-            }
-            else if (random == 1) {
-                launchDefiDraw();
-            }
-            else {
-                launchDefiSecouer();
+            int random = rand.nextInt(4);
+            switch (random) {
+                case 0:
+                    launchDefiQuestions();
+                    break;
+                case 1:
+                    launchDefiDraw();
+                    break;
+                case 2:
+                    launchDefiSecouer();
+                    break;
+                case  3:
+                    launchDefiCompass();
+                    break;
             }
         }
     }
@@ -79,6 +84,15 @@ public class OnePlayerGameManager extends Activity{
     public void launchDefiDraw(){
         // Start Defi_Draw
         Intent intent = new Intent(OnePlayerGameManager.this, Defi_Dessin.class);
+        intent.putExtra("PLAYER_NAME", current_name);
+        intent.putExtra("PLAYER_SCORE", current_score);
+        intent.putExtra("CURRENT_DEFIS", nb_defi);
+        startActivity(intent);
+    }
+
+    public void launchDefiCompass(){
+        // Start Defi_compass
+        Intent intent = new Intent(OnePlayerGameManager.this, Defi_compass.class);
         intent.putExtra("PLAYER_NAME", current_name);
         intent.putExtra("PLAYER_SCORE", current_score);
         intent.putExtra("CURRENT_DEFIS", nb_defi);

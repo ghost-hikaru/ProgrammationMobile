@@ -16,6 +16,7 @@
 
     <ImageView
         android:id="@+id/compass_image"
+        android:background="@color/white"
         android:layout_width="305dp"
         android:layout_height="510dp"
         android:layout_centerInParent="true"

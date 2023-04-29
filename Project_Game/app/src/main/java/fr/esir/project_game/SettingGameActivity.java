@@ -3,12 +3,7 @@ package fr.esir.project_game;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -21,53 +16,33 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.core.app.ActivityCompat;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
+
+import androidx.core.app.ActivityCompat;
 
 import fr.esir.wifi.DeviceDetailFragment;
 import fr.esir.wifi.DeviceListFragment;
 import fr.esir.wifi.MyReceiver;
 //implements WifiP2pManager.ChannelListener, DeviceListFragment.DeviceActionListener
-public class SettingGameActivity extends Activity  {
+public class SettingGameActivity extends Activity implements WifiP2pManager.ChannelListener, DeviceListFragment.DeviceActionListener  {
 
     EditText name_player_edit;
     TextView deviceName;
     Button onOff,discover;
-    ListView listDevice;
     public static final String TAG = "SettingGameActivity";
 
-    private BluetoothAdapter BA;
-    private Set<BluetoothDevice> pairDevices;
 
 
     /**
      * WIFI declaration
      * @param savedInstanceState
      */
-    /*
+
     private static final int PERMISSIONS_REQUEST_CODE_ACCESS_FINE_LOCATION = 1001;
 
     private boolean isWifiP2pEnabled = false;
@@ -77,11 +52,11 @@ public class SettingGameActivity extends Activity  {
     WifiP2pManager.Channel channel;
     WifiP2pManager manager;
     private MyReceiver receiver = null;
-    */
+
     /**
      * @param //isWifiP2pEnabled the isWifiP2pEnabled to set
      */
-    /*
+
     public void setIsWifiP2pEnabled(boolean isWifiP2pEnabled) {
         this.isWifiP2pEnabled = isWifiP2pEnabled;
     }
@@ -132,216 +107,18 @@ public class SettingGameActivity extends Activity  {
                 break;
         }
     }
-    */
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_setting_game_bluetooth);
-
-        onOff = (Button) findViewById(R.id.p2POnOff_button_setting);
-        discover = (Button) findViewById(R.id.discover_button_setting);
-        listDevice = (ListView) findViewById(R.id.player_bluetooth_setting);
-        deviceName = (TextView) findViewById(R.id.device_name_setting_game);
-
-        deviceName.setText(getLocalBluetoothName());
-
-        BA = BluetoothAdapter.getDefaultAdapter();
-
-        if (BA == null){
-            Toast.makeText(this,"Bluetooth not supported", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        onOff.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onClick(View view) {
-                if (BA.isEnabled()){
-                    BA.disable();
-                    //Toast.makeText(this,"Turned off", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(intentOn,0);
-                    //Toast.makeText(this,"Turned on", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        discover.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onClick(View view) {
-                Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                startActivityForResult(getVisible,0);
-                list();
-            }
-        });
+        setContentView(R.layout.layout_setting_game);
+        initSettting();
+        settingButton();
     }
-
-
-    @SuppressLint("MissingPermission")
-    private void list(){
-        pairDevices = BA.getBondedDevices();
-
-        ArrayList list = new ArrayList();
-        for (BluetoothDevice bt : pairDevices){
-            list.add(bt.getName());
-        }
-        Toast.makeText(this,"Showing devices", Toast.LENGTH_SHORT).show();
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,list);
-        listDevice.setAdapter(adapter);
-
-        listDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String deviceName = (String) adapterView.getItemAtPosition(i);
-                BluetoothDevice device = null;
-                for (BluetoothDevice bt : pairDevices){
-                    if (bt.getName().equals(deviceName)){
-                        device = bt;
-                        break;
-                    }
-                }
-                if (device != null) {
-                    UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); // UUID générique pour les connexions Bluetooth série
-                    try {
-                        BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid);
-                        socket.connect();
-                        BluetoothDevice finalDevice = device;
-
-                        // Créer un fichier avec le nom du destinataire et la date courante
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-                        String fileName = finalDevice.getName() + "_" + dateFormat.format(new Date()) + ".txt";
-                        File file = new File(getExternalFilesDir(null), fileName);
-                        FileWriter writer = new FileWriter(file);
-                        writer.write("Bonjour " + finalDevice.getName() + ",\n");
-                        writer.write("Je vous envoie ce fichier à " + dateFormat.format(new Date()) + ".\n");
-                        writer.close();
-
-                        // Envoyer le fichier via Bluetooth
-                        sendFile(finalDevice, file);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
-                                builder.setTitle("Bluetooth connection");
-                                builder.setMessage("Bluetooth connection successful with " + finalDevice.getName());
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        // fermer la popup et effectuer une autre action si nécessaire
-                                    }
-                                });
-                                builder.create().show();
-                            }
-                        });
-                    } catch (IOException e) {
-                        // erreur lors de la connexion, gérer l'exception ici
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
-                                builder.setTitle("Bluetooth connection");
-                                builder.setMessage("Bluetooth connection lost");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        // fermer la popup et effectuer une autre action si nécessaire
-                                    }
-                                });
-                                builder.create().show();
-                            }
-                        });
-                    }
-                }
-            }
-        });
-    }
-
-
-    public String getLocalBluetoothName(){
-        if(BA == null){
-            BA = BluetoothAdapter.getDefaultAdapter();
-        }
-        @SuppressLint("MissingPermission") String name = BA.getName();
-        if(name==null){
-            name = BA.getAddress();
-        }
-        return name;
-    }
-
-    @SuppressLint("MissingPermission")
-    private void sendFile(BluetoothDevice device, File file) {
-        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-        try {
-            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(uuid);
-            socket.connect();
-
-            OutputStream outputStream = socket.getOutputStream();
-            InputStream inputStream = new FileInputStream(file);
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-
-            while ((bytesRead = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-
-            inputStream.close();
-            outputStream.close();
-            socket.close();
-
-            // Envoyer un message de réussite
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
-                    builder.setTitle("Bluetooth file transfer");
-                    builder.setMessage("File sent successfully to " + device.getName());
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // fermer la popup et effectuer une autre action si nécessaire
-                        }
-                    });
-                    builder.create().show();
-                }
-            });
-        } catch (IOException e) {
-            // erreur lors de l'envoi du fichier, gérer l'exception ici
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingGameActivity.this);
-                    builder.setTitle("Bluetooth file transfer");
-                    builder.setMessage("File transfer failed to " + device.getName());
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // fermer la popup et effectuer une autre action si nécessaire
-                        }
-                    });
-                    builder.create().show();
-                }
-            });
-        }
-    }
-
-
-
-
-
-
-
-
 
 
     /** register the BroadcastReceiver with the intent values to be matched */
-    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -353,13 +130,12 @@ public class SettingGameActivity extends Activity  {
     public void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
-    }*/
+    }
 
     /**
      * Remove all peers and clear all fields. This is called on
      * BroadcastReceiver receiving a state change event.
      */
-    /*
     public void resetData() {
         DeviceListFragment fragmentList = (DeviceListFragment) getFragmentManager().findFragmentById(R.id.frag_list);
         DeviceDetailFragment fragmentDetails = (DeviceDetailFragment) getFragmentManager().findFragmentById(R.id.frag_detail);
@@ -383,6 +159,12 @@ public class SettingGameActivity extends Activity  {
 
         if (!initP2p()) {
             finish();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, SettingGameActivity.PERMISSIONS_REQUEST_CODE_ACCESS_FINE_LOCATION);
+            // After this point you wait for callback in
+            // onRequestPermissionsResult(int, String[], int[]) overridden method
         }
 
     }
@@ -484,7 +266,7 @@ public class SettingGameActivity extends Activity  {
                 fragment.getView().setVisibility(View.GONE);
             }
         });
-    }*/
+    }
 }
 
 
