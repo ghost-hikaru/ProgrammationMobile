@@ -57,6 +57,7 @@
         <activity android:name=".EndGameActivity"/>
         <activity android:name=".Defi_Secouer"/>
         <activity android:name=".Defi_compass"/>
+        <activity android:name=".LeaderBoardActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

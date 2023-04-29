@@ -28,13 +28,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
 
-
         //SetFiles();
         //delete();
         
         Button play_but = (Button) findViewById(R.id.button_play_home);
         Button train_but = (Button) findViewById(R.id.button_train_home);
         Button challenge_but = (Button) findViewById(R.id.button_add_challenge_home);
+        Button leader_but = (Button) findViewById(R.id.button_leaderboard_home);
         ImageButton Logo_button = (ImageButton)findViewById(R.id.image_logo_home);
 
         Logo_button.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +93,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddChallengeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        leader_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LeaderBoardActivity.class);
                 startActivity(intent);
             }
         });
