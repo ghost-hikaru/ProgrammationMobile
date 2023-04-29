@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
     <!-- Google Play filtering -->
     <uses-feature android:name="android.hardware.wifi.direct" android:required="true"/>
@@ -54,6 +56,18 @@
         <activity android:name=".OnePlayerGameManager"/>
         <activity android:name=".EndGameActivity"/>
         <activity android:name=".Defi_Secouer"/>
+        <activity android:name=".Defi_compass"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="fr.esir.wifidirect.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path" />
+        </provider>
+
         <service android:enabled="true" android:name="fr.esir.wifi.FileTransferService" />
     </application>
 </manifest>

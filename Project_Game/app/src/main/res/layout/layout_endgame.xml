@@ -111,7 +111,8 @@
         android:layout_below="@+id/leaderbord_layout_endgame"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:background="@color/red"
         android:fontFamily="@font/font_pixel"
         android:text="@string/retour_au_menu" />
 
