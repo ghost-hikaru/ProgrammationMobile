@@ -30,7 +30,7 @@ public class OnePlayerGameManager extends Activity{
         }
         else {
             Random rand = new Random();
-            int random = rand.nextInt(4);
+            int random = rand.nextInt(5);
             switch (random) {
                 case 0:
                     launchDefiQuestions();
@@ -44,8 +44,20 @@ public class OnePlayerGameManager extends Activity{
                 case  3:
                     launchDefiCompass();
                     break;
+                case  4:
+                    launchDefiSlide();
+                    break;
             }
         }
+    }
+
+    private void launchDefiSlide() {
+        // Start Defi_compass
+        Intent intent = new Intent(OnePlayerGameManager.this, Defi_slide.class);
+        intent.putExtra("PLAYER_NAME", current_name);
+        intent.putExtra("PLAYER_SCORE", current_score);
+        intent.putExtra("CURRENT_DEFIS", nb_defi);
+        startActivity(intent);
     }
 
     public void launchEndGame(){
