@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Defi_Secouer"
+    android:background="@color/grey">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/teal_700"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <!-- Icône au centre -->
+            <ImageView
+                android:id="@+id/personn_icon_shake"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/user" />
+
+            <!-- Texte à gauche de l'icône -->
+            <TextView
+                android:id="@+id/namePlayer_textview_compass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_player"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_pixel"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Texte en dessous de l'icône -->
+        <TextView
+            android:id="@+id/scorePlayer_textview_compass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp"/>
+    </RelativeLayout>
+
+
+    <!-- Rectangle gris pour le bas -->
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_layout"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/teal_700">
+
+        <!-- Mini-titre -->
+        <TextView
+            android:id="@+id/title_defi_textview_compass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Défis n°Default"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Texte en dessous du mini-titre -->
+        <TextView
+            android:id="@+id/content_defi_textview_compass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_defi_textview_compass"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/font_pixel"
+            android:gravity="center"
+            android:text="Répéte la séquence suivants :"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/content_defi_textview_compass"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/movement1_imageview_slidedefis"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_arrow_down_foreground"/>
+
+            <ImageView
+                android:id="@+id/movement2_imageview_slidedefis"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_arrow_up_foreground"/>
+
+            <ImageView
+                android:id="@+id/movement3_imageview_slidedefis"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_arrow_left_foreground"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -10,26 +10,26 @@
         android:text="default degree"
         android:textSize="24sp"
         android:textColor="#000000"
-        android:layout_above="@id/compass_image"
+        android:layout_above="@id/light_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
 
     <ImageView
-        android:id="@+id/compass_image"
-        android:background="@color/white"
+        android:id="@+id/light_image"
         android:layout_width="305dp"
         android:layout_height="510dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/compass" />
+        android:background="@color/white"
+        android:src="@drawable/light_foreground" />
 
     <TextView
         android:id="@+id/degree_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0°"
+        android:text="0%"
         android:textSize="24sp"
         android:textColor="#000000"
-        android:layout_below="@id/compass_image"
+        android:layout_below="@id/light_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
 
