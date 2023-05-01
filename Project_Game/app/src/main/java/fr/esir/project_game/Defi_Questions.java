@@ -31,6 +31,7 @@ public class Defi_Questions extends Activity{
     TextView text_number_defi;
     String current_defi_string = "Défi n° ";
     int nb_defi;
+    int mode;
     int current_score;
     String current_name;
     TextView content_defi;
@@ -63,7 +64,12 @@ public class Defi_Questions extends Activity{
                 builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Defi_Questions.this, OnePlayerGameManager.class);
+                        Intent intent;
+                        if(mode == 1){
+                            intent = new Intent(Defi_Questions.this, TrainingGameManager.class);
+                        }else {
+                            intent = new Intent(Defi_Questions.this, OnePlayerGameManager.class);
+                        }
                         intent.putExtra("PLAYER_NAME", current_name);
                         intent.putExtra("PLAYER_SCORE", current_score);
                         intent.putExtra("CURRENT_DEFIS", nb_defi);
@@ -77,6 +83,8 @@ public class Defi_Questions extends Activity{
 
     public void InitAff(){
         Intent intent = getIntent();
+        mode = intent.getIntExtra("MODE",0);
+
         current_name = intent.getStringExtra("PLAYER_NAME");
         current_score = intent.getIntExtra("PLAYER_SCORE", 0);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);

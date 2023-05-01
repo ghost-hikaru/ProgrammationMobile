@@ -40,6 +40,7 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
     private Intent intent;
     String current_defi_string = "Défi n° ";
     int score;
+    int mode;
     String player_name;
     int nb_defi;
 
@@ -117,7 +118,12 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                     builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Defi_Dessin.this, OnePlayerGameManager.class);
+                            Intent intent;
+                            if(mode == 1){
+                                intent = new Intent(Defi_Dessin.this, TrainingGameManager.class);
+                            }else {
+                                intent = new Intent(Defi_Dessin.this, OnePlayerGameManager.class);
+                            }
                             intent.putExtra("PLAYER_NAME", player_name);
                             intent.putExtra("PLAYER_SCORE", score);
                             intent.putExtra("CURRENT_DEFIS", nb_defi);
@@ -136,6 +142,7 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
     }
     private void initAff(){
         Intent intent = getIntent();
+        mode = intent.getIntExtra("MODE",0);
 
         imageView = (ImageView) findViewById(R.id.drawing_canvas_drawdefi);
         clearButton = (Button) findViewById(R.id.clear_button);
