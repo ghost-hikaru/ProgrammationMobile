@@ -26,6 +26,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
     int score;
     String player_name;
     int nb_defi;
+    int mode;
     //
     // device sensor manager
     private SensorManager SensorManage;
@@ -45,6 +46,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
 
     private void initAff() {
         Intent intent = getIntent();
+        mode = intent.getIntExtra("MODE",0);
         text_name_player = (TextView) findViewById(R.id.namePlayer_textview_compass);
         player_name = intent.getStringExtra("PLAYER_NAME");
         text_name_player.setText(player_name);
@@ -104,7 +106,12 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
             builder.setCancelable(false);
             builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    Intent intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
+                    Intent intent;
+                    if(mode == 1){
+                         intent = new Intent(Defi_compass.this, TrainingGameManager.class);
+                    }else {
+                         intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
+                    }
                     intent.putExtra("PLAYER_NAME", player_name);
                     intent.putExtra("PLAYER_SCORE", score);
                     intent.putExtra("CURRENT_DEFIS", nb_defi);
