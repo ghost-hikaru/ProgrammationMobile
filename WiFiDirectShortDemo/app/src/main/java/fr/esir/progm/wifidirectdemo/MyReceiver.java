@@ -70,7 +70,7 @@ public class MyReceiver extends BroadcastReceiver {
             // Connection state changed! We should probably do something about
             // that.
 
-        } */else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
+        } */else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
             if (manager == null) {
                 return;
             }

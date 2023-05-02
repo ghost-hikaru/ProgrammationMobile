@@ -253,7 +253,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 File recvFile = new File(result);
                 Uri fileUri = FileProvider.getUriForFile(
                                 context,
-                                "fr.esir.progm.wifidirectdemo.fileprovider",
+                                "com.example.android.wifidirect.fileprovider",
                                 recvFile);
                 Intent intent = new Intent();
                 intent.setAction(android.content.Intent.ACTION_VIEW);
