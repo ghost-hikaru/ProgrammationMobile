@@ -22,6 +22,7 @@ public class Defi_slide extends AppCompatActivity {
     int score;
     String player_name;
     int nb_defi;
+    int mode;
     //
     ImageView movement1_image,movement2_image,movement3_image;
     String[] mouvement_tab = {"UP", "RIGHT", "DOWN", "LEFT"};
@@ -39,6 +40,8 @@ public class Defi_slide extends AppCompatActivity {
 
     public void initAff(){
         Intent intent = getIntent();
+        mode = intent.getIntExtra("MODE",0);
+
         text_name_player = (TextView) findViewById(R.id.namePlayer_textview_compass);
         player_name = intent.getStringExtra("PLAYER_NAME");
         text_name_player.setText(player_name);
@@ -124,7 +127,7 @@ public class Defi_slide extends AppCompatActivity {
                 directionTab = "UP";
                 break;
         }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         mouvement_tab_user.add(directionTab);
 
         if(mouvement_tab_user.size()==3){
@@ -150,7 +153,12 @@ public class Defi_slide extends AppCompatActivity {
             builder.setCancelable(false);
             builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    Intent intent = new Intent(Defi_slide.this, OnePlayerGameManager.class);
+                    Intent intent;
+                    if(mode == 1){
+                        intent = new Intent(Defi_slide.this, TrainingGameManager.class);
+                    }else {
+                        intent = new Intent(Defi_slide.this, OnePlayerGameManager.class);
+                    }
                     intent.putExtra("PLAYER_NAME", player_name);
                     intent.putExtra("PLAYER_SCORE", score);
                     intent.putExtra("CURRENT_DEFIS", nb_defi);

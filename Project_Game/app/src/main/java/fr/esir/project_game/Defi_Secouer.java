@@ -28,6 +28,7 @@ public class Defi_Secouer extends AppCompatActivity {
     int score;
     String player_name;
     int nb_defi;
+    int mode;
 
 
     private float SHAKE_THRESHOLD = 50.0f;
@@ -43,6 +44,8 @@ public class Defi_Secouer extends AppCompatActivity {
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
     private void initAff(){
+        mode = intent.getIntExtra("MODE",0);
+
         shakeProgressBar = findViewById(R.id.shakeProgressBar_shake);
         NbSecouage = findViewById(R.id.nombreDeSecouage_shake);
 
@@ -84,7 +87,12 @@ public class Defi_Secouer extends AppCompatActivity {
                         builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
+                                Intent intent;
+                                if(mode == 1){
+                                    intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
+                                }else {
+                                    intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
+                                }
                                 intent.putExtra("PLAYER_NAME", player_name);
                                 intent.putExtra("PLAYER_SCORE", score);
                                 intent.putExtra("CURRENT_DEFIS", nb_defi);

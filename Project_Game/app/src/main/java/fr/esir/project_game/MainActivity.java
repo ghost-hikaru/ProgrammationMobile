@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +18,13 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class MainActivity extends Activity {
+    private static final int PICK_MP3_REQUEST = 1;
     String player_lead = "leaderboard.txt";
     String chellenge_file = "challenge.csv";
 
@@ -35,9 +42,11 @@ public class MainActivity extends Activity {
         Button train_but = (Button) findViewById(R.id.button_train_home);
         Button challenge_but = (Button) findViewById(R.id.button_add_challenge_home);
         Button leader_but = (Button) findViewById(R.id.button_leaderboard_home);
-        ImageButton Logo_button = (ImageButton)findViewById(R.id.image_logo_home);
+        Button add_music_but = (Button) findViewById(R.id.button_add_music_home);
+        Button training_but = (Button) findViewById(R.id.button_training_home);
+        //ImageButton Logo_button = (ImageButton)findViewById(R.id.music_logo_home);
 
-        Logo_button.setOnClickListener(new View.OnClickListener() {
+        /*Logo_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.music);
@@ -50,7 +59,18 @@ public class MainActivity extends Activity {
                 });
                 mediaPlayer.start();
             }
+        });*/
+
+        add_music_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("audio/mpeg");
+                startActivityForResult(intent, PICK_MP3_REQUEST);
+            }
         });
+
+
 
         play_but.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +79,18 @@ public class MainActivity extends Activity {
                     mediaPlayer.stop();
                 }
                 Intent intent = new Intent(MainActivity.this, SettingGameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        training_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                }
+                Intent intent = new Intent(MainActivity.this, TrainingGameManager.class);
+                intent.putExtra("PLAYER_NAME","Entrainement");
                 startActivity(intent);
             }
         });
@@ -187,23 +219,40 @@ public class MainActivity extends Activity {
         return false;
     }
 
-}
-
-
-/*
-private MediaPlayer player;
-// dans le Oncreate
-player = null;
-/////
-if(player == null){
-    player = MediaPlayer.create(MainActivity.this, R.raw.defeat_sound);
-}
-player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
     @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
-        player.release();
-        player=null;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_MP3_REQUEST && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            String filePath = getRealPathFromURI(uri);
+
+            try {
+                InputStream is = getContentResolver().openInputStream(uri);
+                File file = new File(Environment.getExternalStorageDirectory() + "/raw/" + "my_music.mp3");
+                FileOutputStream fos = new FileOutputStream(file);
+
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, bytesRead);
+                }
+                fos.close();
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-});
-player.start();
- */
+
+    public String getRealPathFromURI(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String filePath = cursor.getString(column_index);
+        cursor.close();
+        return filePath;
+    }
+
+}

@@ -10,22 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/image_logo_home"
-            android:src="@drawable/logo"
-            android:background="@color/white"/>
-
         <TextView
-            android:id="@+id/title_textview_home"
+            android:id="@+id/title_textview_choose_train"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jeux Pair à Pair"
+            android:text="Choissisez le jeu"
             android:textColor="@color/white"
             android:fontFamily="@font/font_pixel"
-            android:textSize="35sp"
+            android:textSize="25sp"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -36,66 +28,77 @@
             android:gravity="center_horizontal">
 
             <Button
-                android:id="@+id/button_play_home"
+                android:id="@+id/button_question_choose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/font_pixel"
-                android:text="2 joueurs"
+                android:text="Questions/Réponses"
                 android:background="@color/red"
                 android:radius="20dp"/>
 
             <Button
-                android:id="@+id/button_train_home"
+                android:id="@+id/button_shake_choose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/font_pixel"
-                android:text="1 joueurs"
-                android:background="@color/red"
-                android:layout_marginTop="20dp"
-                android:radius="20dp"/>
-
-            <Button
-                android:id="@+id/button_training_home"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/font_pixel"
-                android:text="Entrainement"
+                android:text="Défis secouer"
                 android:background="@color/red"
                 android:layout_marginTop="20dp"
                 android:radius="20dp"/>
 
             <Button
-                android:id="@+id/button_add_challenge_home"
+                android:id="@+id/button_compass_choose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/font_pixel"
-                android:text="Ajouter des défis"
+                android:text="Défi boussole"
                 android:background="@color/red"
                 android:layout_marginTop="20dp"
                 android:radius="20dp"/>
 
             <Button
-                android:id="@+id/button_add_music_home"
+                android:id="@+id/button_draw_choose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/font_pixel"
-                android:text="Ajouter des musiques"
+                android:text="Défis dessins"
                 android:background="@color/red"
                 android:layout_marginTop="20dp"
                 android:radius="20dp"/>
 
             <Button
-                android:id="@+id/button_leaderboard_home"
+                android:id="@+id/button_slider_choose"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/font_pixel"
-                android:text="Voir le classement"
+                android:text="Défis slider"
+                android:background="@color/red"
+                android:layout_marginTop="20dp"
+                android:radius="20dp"/>
+
+            <Button
+                android:id="@+id/button_blind_test_choose"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_pixel"
+                android:text="Blind test"
+                android:background="@color/red"
+                android:layout_marginTop="20dp"
+                android:radius="20dp"/>
+
+            <Button
+                android:id="@+id/button_back_home_choose"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_pixel"
+                android:text="Menu principal"
                 android:background="@color/red"
                 android:layout_marginTop="20dp"
                 android:radius="20dp"/>
@@ -105,37 +108,6 @@
 
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/copyright_textview_home"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:fontFamily="@font/font_pixel"
-        android:text="Copyright : MATHURIN Melvin et VOISIN Enzo" />
-
-    <!--<TextView
-        android:id="@+id/top_right_textview_home"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bouton Volume" />
-
-    <ImageButton
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/music_logo_home"
-        android:src="@drawable/ic_speaker"
-        android:background="@color/grey"/>-->
 
 
 </RelativeLayout>
