@@ -10,8 +10,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +24,12 @@ import java.util.Random;
 
 public class Defi_compass extends AppCompatActivity implements SensorEventListener {
     private TextView text_name_player,text_score_player,text_number_defi, text_degree, text_content;
-    String current_defi_string = "Défi n° ";
-    int score;
-    String player_name;
-    int nb_defi;
-    int mode;
-    //
+    private final String current_defi_string = "Défi n° ";
+    private int score;
+    private String player_name;
+    private int nb_defi;
+    private int mode;
+
     // device sensor manager
     private SensorManager SensorManage;
     // define the compass picture that will be use
@@ -35,7 +37,9 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
     // record the angle turned of the compass picture
     private float DegreeStart = 0f;
     // target
-    public int targetDegree;
+    private int targetDegree;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,19 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
         Random random = new Random();
         targetDegree = random.nextInt(360);
         text_content.setText("Trouver l'orientation : "+targetDegree);
+
+        if (mode == 1){
+            Button back_button = findViewById(R.id.back_button_compass);
+            back_button.setVisibility(Button.VISIBLE);
+
+            back_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_compass.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+        }
     }
 
     @Override

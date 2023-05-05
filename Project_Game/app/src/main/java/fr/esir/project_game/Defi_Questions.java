@@ -43,7 +43,7 @@ public class Defi_Questions extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("Début de la création de l'activité");
-        setContentView(R.layout.layout_training);
+        setContentView(R.layout.layout_question);
         System.out.println("Layout chargé");
         InitAff();
         System.out.println("Affichage initialisé");
@@ -112,6 +112,18 @@ public class Defi_Questions extends Activity{
         content_defi.setText(affQuestion);
         edit_answer = (EditText) findViewById(R.id.response_edittext_training);
         valid_button = (Button) findViewById(R.id.validate_button_training);
+
+        if (mode == 1){
+            Button back_menu = (Button) findViewById(R.id.back_menu_button_question);
+            back_menu.setVisibility(Button.VISIBLE);
+            back_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_Questions.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+        }
     }
 
     public String read(){

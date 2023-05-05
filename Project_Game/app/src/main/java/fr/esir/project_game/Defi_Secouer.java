@@ -10,6 +10,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -63,6 +65,18 @@ public class Defi_Secouer extends AppCompatActivity {
             text_score_player.setText("0"+String.valueOf(score));
         }else{
             text_score_player.setText(String.valueOf(score));
+        }
+
+        if (mode == 1){
+            Button back_menu = (Button) findViewById(R.id.back_menu_button_shake);
+            back_menu.setVisibility(Button.VISIBLE);
+            back_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_Secouer.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
         }
     }
 

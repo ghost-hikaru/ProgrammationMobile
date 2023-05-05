@@ -139,5 +139,14 @@
         android:fontFamily="@font/font_pixel"
         android:text="0" />
     </RelativeLayout>
+    <Button
+        android:id="@+id/back_menu_button_shake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour au menu"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +53,7 @@ public class Defi_slide extends AppCompatActivity {
         text_number_defi.setText(current_defi_string + String.valueOf(nb_defi));
 
         text_score_player = (TextView) findViewById(R.id.scorePlayer_textview_compass);
+
         score = intent.getIntExtra("PLAYER_SCORE", 0);
         if(score<10){
             text_score_player.setText("0"+String.valueOf(score));

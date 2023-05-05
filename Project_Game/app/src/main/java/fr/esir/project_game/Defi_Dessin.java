@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,11 +40,12 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
     private TextView text_score_player;
     private TextView text_number_defi;
     private Intent intent;
-    String current_defi_string = "Défi n° ";
-    int score;
-    int mode;
-    String player_name;
-    int nb_defi;
+    private final String current_defi_string = "Défi n° ";
+    private int score;
+    private int mode;
+    private String player_name;
+    private int nb_defi;
+    private int nb_try;
 
 
     @Override
@@ -133,7 +136,29 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                     builder.show();
                 }
                 else {
-                    showToast("Le cercle n'est pas assez parfait, recommencez");
+                    nb_try++;
+                    if (nb_try == 3){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Dessin.this);
+                        builder.setTitle("Vous avez perdu !");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent;
+                                if(mode == 1){
+                                    intent = new Intent(Defi_Dessin.this, TrainingGameManager.class);
+                                }else {
+                                    intent = new Intent(Defi_Dessin.this, OnePlayerGameManager.class);
+                                }
+                                intent.putExtra("PLAYER_NAME", player_name);
+                                intent.putExtra("PLAYER_SCORE", score);
+                                intent.putExtra("CURRENT_DEFIS", nb_defi);
+                                startActivity(intent);
+                            }
+                        });
+                        builder.show();
+                    }
+                    showToast("Le cercle n'est pas assez parfait, il vous reste " + String.valueOf(3-nb_try) + " tentatives.");
                 }
                 break;
         }
@@ -165,6 +190,24 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
             text_score_player.setText("0"+String.valueOf(score));
         }else{
             text_score_player.setText(String.valueOf(score));
+        }
+
+        if (mode == 1){
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) clearButton.getLayoutParams();
+            params.bottomMargin = 0; // Définir la marge en bas sur 0d
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            clearButton.setLayoutParams(params); // Définir les nouvelles propriétés de disposition pour le bouton
+
+            Button back_menu = (Button) findViewById(R.id.back_menu_button_draw);
+            back_menu.setVisibility(Button.VISIBLE);
+            back_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_Dessin.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+
         }
     }
 
