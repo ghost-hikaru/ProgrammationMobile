@@ -42,11 +42,8 @@ public class Defi_Questions extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("Début de la création de l'activité");
         setContentView(R.layout.layout_question);
-        System.out.println("Layout chargé");
         InitAff();
-        System.out.println("Affichage initialisé");
         valid_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

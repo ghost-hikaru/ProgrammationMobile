@@ -64,9 +64,8 @@ public class MainActivity extends Activity {
         add_music_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("audio/mpeg");
-                startActivityForResult(intent, PICK_MP3_REQUEST);
+                Intent intent = new Intent(MainActivity.this, AddMusicActivity.class);
+                startActivity(intent);
             }
         });
 
