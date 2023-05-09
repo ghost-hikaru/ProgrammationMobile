@@ -46,6 +46,7 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
     private String player_name;
     private int nb_defi;
     private int nb_try;
+    private long startTime;
 
 
     @Override
@@ -61,6 +62,7 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
 
         imageView.setOnTouchListener(this);
         clearButton.setOnClickListener(this);
+        startTime = System.nanoTime();
     }
 
     @Override
@@ -113,10 +115,13 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                 //else if (Math.abs(1 - averageDistance / radius) < 0.9) {
                 //else if (Math.abs(totalDistance/100 - perimeter) < 0.6 * perimeter){
                 else if (isCircleOne() && isCircleTwo()){
+                    long endTime = System.nanoTime();
+                    // Calculation of elapsed time in milliseconds
+                    long elapsedTimeMs = (endTime - startTime) / 1000000;
                     isCircle = true;
                     score++;
                     AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Dessin.this);
-                    builder.setTitle("Bravo, vous avez réussi !");
+                    builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" ms");
                     builder.setCancelable(false);
                     builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                         @Override
@@ -138,6 +143,9 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                 else {
                     nb_try++;
                     if (nb_try == 3){
+                        long endTime = System.nanoTime();
+                        // Calculation of elapsed time in milliseconds
+                        long elapsedTimeMs = (endTime - startTime) / 1000000;
                         AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Dessin.this);
                         builder.setTitle("Vous avez perdu !");
                         builder.setCancelable(false);

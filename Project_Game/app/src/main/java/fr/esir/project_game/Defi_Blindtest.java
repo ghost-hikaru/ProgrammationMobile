@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class to manage the BlindTest challenge
+ */
 public class Defi_Blindtest extends Activity {
     private String answer_player;
     private String answer;
@@ -38,21 +41,31 @@ public class Defi_Blindtest extends Activity {
     private Uri uri;
     private boolean isPlaying = false;
     private MediaPlayer mediaPlayer;
+    private boolean fromFile;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_blindtest);
+
         InitAff();
-        selectRandomFromFilesDir();
+        long startTime = System.nanoTime();
+
         valid_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long endTime = System.nanoTime();
+                // Calculation of elapsed time in milliseconds
+                long elapsedTimeMs = (endTime - startTime) / 1000000;
+                // Stop the music if it is playing
                 shouldStop();
+                // Get the answer from the player
                 answer_player = edit_answer.getText().toString();
+                // Create a dialog to display the result of the challenge
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Blindtest.this);
                 builder.setTitle("Résultat de la question : ");
                 if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll("_", ""))){
-                    builder.setMessage("Bravo vous avez entré la bonne réponse");
+                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" ms");
                     current_score += 1;
                 }
                 else{
@@ -79,6 +92,9 @@ public class Defi_Blindtest extends Activity {
         });
     }
 
+    /**
+     * Init the affectation of the variables
+     */
     public void InitAff(){
         Intent intent = getIntent();
         mode = intent.getIntExtra("MODE",0);
@@ -101,8 +117,16 @@ public class Defi_Blindtest extends Activity {
             text_score_player.setText(String.valueOf(current_score));
         }
 
-        // Select a random music
-        selectRandomFromFilesDir();
+        // Select a random song from the files directory, and set the answer to the name of the song
+        Random rand = new Random();
+        if (rand.nextInt(2) == 1) {
+            selectRandomFromFilesDir();
+            fromFile = true;
+        }
+        else {
+            selectRandomFromRawDir();
+            fromFile = false;
+        }
 
         // Load the musique on a button
         Button play_button = (Button) findViewById(R.id.play_music_button_blindtest);
@@ -115,7 +139,10 @@ public class Defi_Blindtest extends Activity {
                     play_button.setText(play_music_string);
                 }
                 else {
-                    playMp3(uri);
+                    if (fromFile)
+                        playMp3(uri);
+                    else
+                        playMp3(resId);
                     isPlaying = true;
                     play_button.setText(stop_music_string);
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -145,6 +172,10 @@ public class Defi_Blindtest extends Activity {
             });
         }
     }
+
+    /**
+     * Select a random song from the files directory, and set the answer to the name of the song
+     */
     private void selectRandomFromFilesDir() {
         File filesDir = getFilesDir();
         File[] files = filesDir.listFiles();
@@ -159,7 +190,8 @@ public class Defi_Blindtest extends Activity {
 
         if (mp3Files.isEmpty()) {
             // Aucun fichier MP3 trouvé, gestion de l'erreur ou sortie de la méthode
-            System.out.println("Aucun fichier MP3 trouvé");
+            fromFile = false;
+            selectRandomFromRawDir();
             return;
         }
 
@@ -171,10 +203,13 @@ public class Defi_Blindtest extends Activity {
         answer = randomMp3File.getName().replace(".mp3", "");
         uri = Uri.parse(filePath);
     }
-    // Old method to select a random mp3 from the res/raw folder
-    private void SelectRandomMp3(Context context) {
-        Resources resources = context.getResources();
-        String packageName = context.getPackageName();
+
+    /**
+     * Select a random mp3 file from the res/raw directory
+     */
+    private void selectRandomFromRawDir() {
+        Resources resources = this.getResources();
+        String packageName = this.getPackageName();
         System.out.println("Package name : " + packageName);
 
         int resourceId = resources.getIdentifier("mp3_files", "array", packageName);
@@ -190,15 +225,23 @@ public class Defi_Blindtest extends Activity {
         resId = resources.getIdentifier(answer, "raw", packageName);
     }
 
-    private Context getContext() {
-        return this;
-    }
-
+    /**
+     * Play the mp3 file
+     * @param uri the uri of the mp3 file
+     */
     private void playMp3(Uri uri) {
         mediaPlayer = MediaPlayer.create(this, uri);
         mediaPlayer.start();
     }
 
+    private void playMp3(int resId) {
+        mediaPlayer = MediaPlayer.create(this, resId);
+        mediaPlayer.start();
+    }
+
+    /**
+     * Stop the mp3 file if it's playing and release the media player
+     */
     private void shouldStop(){
         if (isPlaying) {
             mediaPlayer.stop();

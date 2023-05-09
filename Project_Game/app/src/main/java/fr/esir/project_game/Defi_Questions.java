@@ -25,18 +25,18 @@ public class Defi_Questions extends Activity{
     private String answer_player;
     private String answer;
     private Activity Ctx;
-    String challenge_file = "challenge.csv";
-    TextView text_name_player;
-    TextView text_score_player;
-    TextView text_number_defi;
-    String current_defi_string = "Défi n° ";
-    int nb_defi;
-    int mode;
-    int current_score;
-    String current_name;
-    TextView content_defi;
-    EditText edit_answer;
-    Button valid_button;
+    private String challenge_file = "challenge.csv";
+    private TextView text_name_player;
+    private TextView text_score_player;
+    private TextView text_number_defi;
+    private final String current_defi_string = "Défi n° ";
+    private int nb_defi;
+    private int mode;
+    private int current_score;
+    private String current_name;
+    private TextView content_defi;
+    private EditText edit_answer;
+    private Button valid_button;
 
 
     @Override
@@ -44,14 +44,18 @@ public class Defi_Questions extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_question);
         InitAff();
+        long startTime = System.nanoTime();
         valid_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long endTime = System.nanoTime();
+                // Calculation of elapsed time in milliseconds
+                long elapsedTimeMs = (endTime - startTime) / 1000000;
                 answer_player = edit_answer.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Questions.this);
                 builder.setTitle("Résultat de la question : ");
                 if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll(" ", ""))){
-                    builder.setMessage("Bravo vous avez entré la bonne réponse");
+                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" ms");
                     current_score += 1;
                 }
                 else{

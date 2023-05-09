@@ -26,13 +26,12 @@ public class Defi_Secouer extends AppCompatActivity {
     private TextView text_score_player;
     private TextView text_number_defi;
     private Intent intent;
-    String current_defi_string = "Défi n° ";
-    int score;
-    String player_name;
-    int nb_defi;
-    int mode;
-
-
+    private final String current_defi_string = "Défi n° ";
+    private int score;
+    private String player_name;
+    private int nb_defi;
+    private int mode;
+    private long startTime;
     private float SHAKE_THRESHOLD = 50.0f;
 
     @Override
@@ -41,7 +40,7 @@ public class Defi_Secouer extends AppCompatActivity {
         setContentView(R.layout.layout_shakedefi);
         intent = getIntent();
         initAff();
-
+        startTime = System.nanoTime();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
@@ -92,27 +91,47 @@ public class Defi_Secouer extends AppCompatActivity {
                     // Augmenter la valeur de la barre en fonction de l'accélération
                     progress += (int) (accelerationMagnitude / SHAKE_THRESHOLD * 10);
                     if (progress >= 500) {
+                        long endTime = System.nanoTime();
+                        // Calculation of elapsed time in milliseconds
+                        long elapsedTimeMs = (endTime - startTime) / 1000000;
                         SHAKE_THRESHOLD = 5000000000000000f;
                         progress = 500;
-                        score++;
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Secouer.this);
-                        builder.setTitle("Bravo, vous avez réussi !");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent;
-                                if(mode == 1){
-                                    intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
-                                }else {
-                                    intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
+                        AlertDialog.Builder builder;
+                        if (elapsedTimeMs < 10000) {
+                            score++;
+                            builder = new AlertDialog.Builder(Defi_Secouer.this);
+                            builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" ms");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent;
+                                    if (mode == 1) {
+                                        intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
+                                    } else {
+                                        intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
+                                    }
+                                    intent.putExtra("PLAYER_NAME", player_name);
+                                    intent.putExtra("PLAYER_SCORE", score);
+                                    intent.putExtra("CURRENT_DEFIS", nb_defi);
+                                    startActivity(intent);
                                 }
-                                intent.putExtra("PLAYER_NAME", player_name);
-                                intent.putExtra("PLAYER_SCORE", score);
-                                intent.putExtra("CURRENT_DEFIS", nb_defi);
-                                startActivity(intent);
-                            }
-                        });
+                            });
+                        } else {
+                            builder = new AlertDialog.Builder(Defi_Secouer.this);
+                            builder.setTitle("Dommage, vous n'y êtes pas arrivé à temps !\nVous avez mis "+elapsedTimeMs+" ms");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(Defi_Secouer.this, Defi_Secouer.class);
+                                    intent.putExtra("PLAYER_NAME", player_name);
+                                    intent.putExtra("PLAYER_SCORE", score);
+                                    intent.putExtra("CURRENT_DEFIS", nb_defi);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
                         builder.show();
                     }
                     NbSecouage.setText(String.valueOf(progress/5)+ " %");
