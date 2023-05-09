@@ -86,14 +86,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_defi_textview_shake"
-            android:textColor="@color/white"
-            android:fontFamily="@font/font_pixel"
             android:layout_centerInParent="true"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="30dp"
-            android:text="Secouez votre téléphone pour augmenter la barre de progression"
+            android:fontFamily="@font/font_pixel"
+            android:text="Secouez votre téléphone pour augmenter la barre de progression !\nVous avez 10 secondes !"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
     </RelativeLayout>

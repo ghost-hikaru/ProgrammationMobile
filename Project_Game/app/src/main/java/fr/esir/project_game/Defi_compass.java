@@ -38,6 +38,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
     private float DegreeStart = 0f;
     // target
     private int targetDegree;
+    private long startTime;
 
 
 
@@ -46,6 +47,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_compassdefi);
         initAff();
+        startTime = System.nanoTime();
     }
 
     private void initAff() {
@@ -76,7 +78,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
         // Générer un degré cible aléatoire entre 0 et 359
         Random random = new Random();
         targetDegree = random.nextInt(360);
-        text_content.setText("Trouver l'orientation : "+targetDegree);
+        text_content.setText("Trouver l'orientation : "+targetDegree+"\nEn moins de 10 secondes !");
 
         if (mode == 1){
             Button back_button = findViewById(R.id.back_button_compass);
@@ -116,26 +118,51 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
             vibrator.vibrate(50); // Vibrate for 50 milliseconds
         }*/
         if ((int) degree == targetDegree){
-            onPause();
-            score += 1;
-            AlertDialog.Builder builder = new AlertDialog.Builder(Defi_compass.this);
-            builder.setMessage("Vous avez trouvé la bonne direction !").setTitle("Félicitation");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Intent intent;
-                    if(mode == 1){
-                         intent = new Intent(Defi_compass.this, TrainingGameManager.class);
-                    }else {
-                         intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
-                    }
-                    intent.putExtra("PLAYER_NAME", player_name);
-                    intent.putExtra("PLAYER_SCORE", score);
-                    intent.putExtra("CURRENT_DEFIS", nb_defi);
-                    startActivity(intent);
+            long endTime = System.nanoTime();
+            // Calculation of elapsed time in milliseconds
+            long elapsedTimeMs = (endTime - startTime) / 1000000;
+            AlertDialog.Builder builder;
+            if (elapsedTimeMs < 10000) {
+                onPause();
+                score += 1;
+                builder = new AlertDialog.Builder(Defi_compass.this);
+                builder.setMessage("Vous avez trouvé la bonne direction !\nVous avez mis "+elapsedTimeMs+" ms").setTitle("Félicitation");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent;
+                        if (mode == 1) {
+                            intent = new Intent(Defi_compass.this, TrainingGameManager.class);
+                        } else {
+                            intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
+                        }
+                        intent.putExtra("PLAYER_NAME", player_name);
+                        intent.putExtra("PLAYER_SCORE", score);
+                        intent.putExtra("CURRENT_DEFIS", nb_defi);
+                        startActivity(intent);
 
-                }
-            });
+                    }
+                });
+            } else {
+                builder = new AlertDialog.Builder(Defi_compass.this);
+                builder.setMessage("Vous avez trouvé la bonne direction ! Mais pas à temps :(\nVous avez mis "+elapsedTimeMs+" ms").setTitle("Dommage");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent;
+                        if (mode == 1) {
+                            intent = new Intent(Defi_compass.this, TrainingGameManager.class);
+                        } else {
+                            intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
+                        }
+                        intent.putExtra("PLAYER_NAME", player_name);
+                        intent.putExtra("PLAYER_SCORE", score);
+                        intent.putExtra("CURRENT_DEFIS", nb_defi);
+                        startActivity(intent);
+
+                    }
+                });
+            }
             AlertDialog dialog = builder.create();
             dialog.show();
         }

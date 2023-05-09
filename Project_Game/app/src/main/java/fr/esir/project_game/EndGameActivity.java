@@ -18,13 +18,14 @@ import java.util.Map;
 
 
 public class EndGameActivity extends Activity {
-    Map<String, String> leaderbord = new HashMap<>();
-    TextView text_score;
-    TextView text_name;
-    TextView state;
-    String text_score_string = "Score final : ";
-    Button back_to_menu;
-    MediaPlayer mediaPlayer = null;
+    private Map<String, String> leaderbord = new HashMap<>();
+    private TextView text_score;
+    private TextView text_name;
+    private TextView state;
+    private final String text_score_string = "Score final : ";
+    private Button back_to_menu;
+    private MediaPlayer mediaPlayer = null;
+    private boolean isPlaying = true;
 
     /**
      * Called when the activity is first created.
@@ -46,7 +47,7 @@ public class EndGameActivity extends Activity {
         back_to_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.stop();
+                shouldStop();
                 Intent intent = new Intent(EndGameActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -81,8 +82,8 @@ public class EndGameActivity extends Activity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
+                isPlaying = false;
                 mediaPlayer.release();
-                mediaPlayer=null;
             }
         });
         mediaPlayer.start();
@@ -108,4 +109,13 @@ public class EndGameActivity extends Activity {
         listView.setAdapter(adapter);
     }
 
+    /**
+     * Method to stop the music if it isn't the case
+     */
+    private void shouldStop(){
+        if (isPlaying) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+    }
 }
