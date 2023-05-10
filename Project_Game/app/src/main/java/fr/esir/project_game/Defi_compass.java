@@ -119,8 +119,8 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
         }*/
         if ((int) degree == targetDegree){
             long endTime = System.nanoTime();
-            // Calculation of elapsed time in milliseconds
-            long elapsedTimeMs = (endTime - startTime) / 1000000;
+            // Calculation of elapsed time in seconds
+            long elapsedTimeMs = (endTime - startTime) / 1000000000;
             AlertDialog.Builder builder;
             if (elapsedTimeMs < 10000) {
                 onPause();

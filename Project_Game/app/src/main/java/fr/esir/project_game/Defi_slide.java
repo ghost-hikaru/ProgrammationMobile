@@ -136,8 +136,8 @@ public class Defi_slide extends AppCompatActivity {
 
         if(mouvement_tab_user.size()==3){
             long endTime = System.nanoTime();
-            // Calculation of elapsed time in milliseconds
-            long elapsedTimeMs = (endTime - startTime) / 1000000;
+            // Calculation of elapsed time in seconds
+            long elapsedTimeMs = (endTime - startTime) / 1000000000;
             System.out.println(mouvement_tab_user.get(0)+"-"+mouvement_tab_user.get(1)+"-"+mouvement_tab_user.get(2));
             boolean same = true;
             String titlePopUp = "Félicitation";

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Defi_Secouer"
-    android:background="@color/grey">
+    android:background="@drawable/map_background2">
 
     <RelativeLayout
         android:id="@+id/top_layout"
@@ -28,7 +28,8 @@
                 android:id="@+id/personn_icon_shake"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/user" />
+                android:src="@drawable/user"
+                />
 
             <!-- Texte à gauche de l'icône -->
             <TextView

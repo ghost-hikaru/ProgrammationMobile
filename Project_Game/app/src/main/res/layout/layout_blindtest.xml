@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:background="@drawable/background_blindtest2">
 
     <RelativeLayout
         android:id="@+id/top_layout"
@@ -162,6 +162,7 @@
         android:textColor="@color/white"
         android:fontFamily="@font/font_pixel"
         android:hint="Votre réponse..."
+        android:textColorHint="@color/white"
         android:inputType="text"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/bottom_layout"/>

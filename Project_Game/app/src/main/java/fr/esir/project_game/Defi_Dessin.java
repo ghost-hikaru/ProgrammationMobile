@@ -116,8 +116,8 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                 //else if (Math.abs(totalDistance/100 - perimeter) < 0.6 * perimeter){
                 else if (isCircleOne() && isCircleTwo()){
                     long endTime = System.nanoTime();
-                    // Calculation of elapsed time in milliseconds
-                    long elapsedTimeMs = (endTime - startTime) / 1000000;
+                    // Calculation of elapsed time in seconds
+                    long elapsedTimeMs = (endTime - startTime) / 1000000000;
                     isCircle = true;
                     score++;
                     AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Dessin.this);
@@ -144,8 +144,8 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                     nb_try++;
                     if (nb_try == 3){
                         long endTime = System.nanoTime();
-                        // Calculation of elapsed time in milliseconds
-                        long elapsedTimeMs = (endTime - startTime) / 1000000;
+                        // Calculation of elapsed time in seconds
+                        long elapsedTimeMs = (endTime - startTime) / 1000000000;
                         AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Dessin.this);
                         builder.setTitle("Vous avez perdu !");
                         builder.setCancelable(false);
