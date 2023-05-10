@@ -122,7 +122,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
             // Calculation of elapsed time in seconds
             long elapsedTimeMs = (endTime - startTime) / 1000000000;
             AlertDialog.Builder builder;
-            if (elapsedTimeMs < 10000) {
+            if (elapsedTimeMs < 10) {
                 onPause();
                 score += 1;
                 builder = new AlertDialog.Builder(Defi_compass.this);
