@@ -17,6 +17,7 @@ import java.util.Random;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class Defi_slide extends AppCompatActivity {
 
     private TextView text_name_player,text_score_player,text_number_defi;
@@ -141,7 +142,7 @@ public class Defi_slide extends AppCompatActivity {
             System.out.println(mouvement_tab_user.get(0)+"-"+mouvement_tab_user.get(1)+"-"+mouvement_tab_user.get(2));
             boolean same = true;
             String titlePopUp = "Félicitation";
-            String textPopUp = "Vous avez réussi !\\nVous avez mis \nVous avez mis "+elapsedTimeMs+" ms";
+            String textPopUp = "Vous avez réussi !\nVous avez mis "+elapsedTimeMs+" s";
 
             for (int i = 0; i < mouvement_tab_user.size(); i++) {
                 // Vérifier que les éléments sont égaux

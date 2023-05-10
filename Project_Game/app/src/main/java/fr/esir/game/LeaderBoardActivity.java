@@ -14,6 +14,7 @@ import java.util.Map;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class LeaderBoardActivity extends Activity {
     Map<String, String> leaderbord = new HashMap<>();
     Button back_to_menu;

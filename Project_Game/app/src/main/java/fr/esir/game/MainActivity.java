@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.layout_home);
 
         SetFiles();
-        //delete();
+
         
         Button play_but = (Button) findViewById(R.id.button_play_home);
         Button train_but = (Button) findViewById(R.id.button_train_home);
@@ -159,7 +159,6 @@ public class MainActivity extends Activity {
                     j++;
                 }
             }
-
             if (!existeChallenge) {
                 File file = new File(this.getFilesDir(), challenge_file);
                 try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
@@ -170,7 +169,7 @@ public class MainActivity extends Activity {
 
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
+                        System.out.println("line " + line);
                         fos.write(line.getBytes());
                     }
 
@@ -179,6 +178,29 @@ public class MainActivity extends Activity {
                     inputStream.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                }
+            }
+            else {
+                File file = new File(this.getFilesDir(), challenge_file);
+                if (isFileEmpty(file)){
+                    try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
+                        // Récupère le contenu du fichier RawQuestion depuis le dossier raw
+                        Resources resources = getResources();
+                        InputStream inputStream = resources.openRawResource(R.raw.rawquestions);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println("line " + line);
+                            fos.write(line.getBytes());
+                        }
+
+                        // Ferme les flux
+                        reader.close();
+                        inputStream.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
@@ -253,4 +275,12 @@ public class MainActivity extends Activity {
         cursor.close();
         return filePath;
     }
+
+    public boolean isFileEmpty(File file) {
+        if (file.exists() && file.isFile()) {
+            return file.length() == 0;
+        }
+        return true;
+    }
+
 }

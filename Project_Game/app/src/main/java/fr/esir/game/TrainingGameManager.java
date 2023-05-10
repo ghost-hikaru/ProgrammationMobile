@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 //import com.bumptech.glide.Glide;
 
 

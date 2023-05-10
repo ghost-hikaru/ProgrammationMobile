@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class Defi_Secouer extends AppCompatActivity {
 
     private SensorManager sensorManager;
@@ -103,7 +104,7 @@ public class Defi_Secouer extends AppCompatActivity {
                         if (elapsedTimeMs < 10000) {
                             score++;
                             builder = new AlertDialog.Builder(Defi_Secouer.this);
-                            builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" ms");
+                            builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" s");
                             builder.setCancelable(false);
                             builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                                 @Override

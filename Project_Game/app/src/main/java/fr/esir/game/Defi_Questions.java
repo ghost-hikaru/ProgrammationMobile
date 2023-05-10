@@ -20,6 +20,7 @@ import java.util.Random;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class Defi_Questions extends Activity{
 
     private String categorie;
@@ -57,7 +58,7 @@ public class Defi_Questions extends Activity{
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Questions.this);
                 builder.setTitle("Résultat de la question : ");
                 if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll(" ", ""))){
-                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" ms");
+                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" s");
                     current_score += 1;
                 }
                 else{
@@ -150,8 +151,7 @@ public class Defi_Questions extends Activity{
         // transformation en tableau --> 1 case = 1 défis
         List<String> listDefis = new ArrayList<>();
         listDefis = Arrays.asList(challenge_file.split(";"));
-
-        System.out.println("loadDefi 1");
+        System.out.println(challenge_file);
 
         // on choisit un défis au hasard
         int index = randomInt(listDefis.size());

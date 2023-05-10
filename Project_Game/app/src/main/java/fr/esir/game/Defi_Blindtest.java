@@ -1,4 +1,4 @@
-package fr.esir.project_game;
+package fr.esir.game;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +18,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import fr.esir.progm.wifidirectdemo.R;
+
 
 /**
  * Class to manage the BlindTest challenge
@@ -65,7 +68,7 @@ public class Defi_Blindtest extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Blindtest.this);
                 builder.setTitle("Résultat de la question : ");
                 if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll("_", ""))){
-                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" ms");
+                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" s");
                     current_score += 1;
                 }
                 else{
@@ -191,6 +194,7 @@ public class Defi_Blindtest extends Activity {
         if (mp3Files.isEmpty()) {
             // Aucun fichier MP3 trouvé, gestion de l'erreur ou sortie de la méthode
             fromFile = false;
+            System.out.println("Aucun fichier MP3 trouvé dans le dossier files");
             selectRandomFromRawDir();
             return;
         }
