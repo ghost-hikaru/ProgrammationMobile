@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Defi_Secouer"
-    android:background="@color/grey">
+    android:background="@drawable/background_fleche">
 
     <RelativeLayout
         android:id="@+id/top_layout"

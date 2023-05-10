@@ -2,8 +2,10 @@ package fr.esir.game;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,11 +16,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import fr.esir.progm.wifidirectdemo.R;
 import fr.esir.progm.wifidirectdemo.WifiDirectActivity;
@@ -26,8 +30,8 @@ import fr.esir.progm.wifidirectdemo.WifiDirectActivity;
 
 public class MainActivity extends Activity {
     private static final int PICK_MP3_REQUEST = 1;
-    String player_lead = "leaderboard.txt";
-    String chellenge_file = "challenge.csv";
+    private final String player_lead = "leaderboard.txt";
+    private final String challenge_file = "challenge.csv";
 
     private MediaPlayer mediaPlayer = null;
 
@@ -36,7 +40,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
 
-        //SetFiles();
+        SetFiles();
         //delete();
         
         Button play_but = (Button) findViewById(R.id.button_play_home);
@@ -145,46 +149,41 @@ public class MainActivity extends Activity {
 
     public void SetFiles() {
         String[] files = this.fileList();
-        boolean existe = false;
-        int i = 0;
         if (files.length > 0) {
-            while (!existe) {
-                if (files[i].equals(player_lead)) {
-                    existe = true;
-                } else {
-                    i++;
-                }
-            }
-            if (!existe) {
-                File file = new File(this.getFilesDir(), player_lead);
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-
             boolean existeChallenge = false;
             int j = 0;
-            while (!existeChallenge) {
-                if (files[j].equals(chellenge_file)) {
+            while (!existeChallenge && j < files.length) {
+                if (files[j].equals(challenge_file)) {
                     existeChallenge = true;
                 } else {
                     j++;
                 }
             }
+
             if (!existeChallenge) {
-                File file = new File(this.getFilesDir(), chellenge_file);
-                try {
-                    file.createNewFile();
+                File file = new File(this.getFilesDir(), challenge_file);
+                try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
+                    // Récupère le contenu du fichier RawQuestion depuis le dossier raw
+                    Resources resources = getResources();
+                    InputStream inputStream = resources.openRawResource(R.raw.rawquestions);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                        fos.write(line.getBytes());
+                    }
+
+                    // Ferme les flux
+                    reader.close();
+                    inputStream.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
 
-        File file = new File(this.getFilesDir(), chellenge_file);
+        File file = new File(this.getFilesDir(), challenge_file);
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -195,7 +194,7 @@ public class MainActivity extends Activity {
 
     public String ShowContent() {
         try {
-            FileInputStream fis = openFileInput(chellenge_file);
+            FileInputStream fis = openFileInput(challenge_file);
 
             StringBuilder sb = new StringBuilder();
             int ch;
@@ -212,7 +211,7 @@ public class MainActivity extends Activity {
     }
 
     public boolean delete(){
-        File file = new File(this.getFilesDir(),player_lead);
+        File file = new File(this.getFilesDir(), challenge_file);
         if(file.delete()){
             return true;
         }
@@ -254,5 +253,4 @@ public class MainActivity extends Activity {
         cursor.close();
         return filePath;
     }
-
 }

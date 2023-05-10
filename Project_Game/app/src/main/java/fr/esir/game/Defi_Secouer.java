@@ -95,8 +95,8 @@ public class Defi_Secouer extends AppCompatActivity {
                     progress += (int) (accelerationMagnitude / SHAKE_THRESHOLD * 10);
                     if (progress >= 500) {
                         long endTime = System.nanoTime();
-                        // Calculation of elapsed time in milliseconds
-                        long elapsedTimeMs = (endTime - startTime) / 1000000;
+                        // Calculation of elapsed time in seconds
+                        long elapsedTimeMs = (endTime - startTime) / 1000000000;
                         SHAKE_THRESHOLD = 5000000000000000f;
                         progress = 500;
                         AlertDialog.Builder builder;

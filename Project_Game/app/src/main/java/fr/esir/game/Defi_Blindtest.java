@@ -55,8 +55,8 @@ public class Defi_Blindtest extends Activity {
             @Override
             public void onClick(View v) {
                 long endTime = System.nanoTime();
-                // Calculation of elapsed time in milliseconds
-                long elapsedTimeMs = (endTime - startTime) / 1000000;
+                // Calculation of elapsed time in seconds
+                long elapsedTimeMs = (endTime - startTime) / 1000000000;
                 // Stop the music if it is playing
                 shouldStop();
                 // Get the answer from the player

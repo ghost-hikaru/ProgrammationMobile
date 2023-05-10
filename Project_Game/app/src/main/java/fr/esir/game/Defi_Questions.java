@@ -51,8 +51,8 @@ public class Defi_Questions extends Activity{
             @Override
             public void onClick(View v) {
                 long endTime = System.nanoTime();
-                // Calculation of elapsed time in milliseconds
-                long elapsedTimeMs = (endTime - startTime) / 1000000;
+                // Calculation of elapsed time in seconds
+                long elapsedTimeMs = (endTime - startTime) / 1000000000;
                 answer_player = edit_answer.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Questions.this);
                 builder.setTitle("Résultat de la question : ");
@@ -159,7 +159,6 @@ public class Defi_Questions extends Activity{
         // on récupère le défis
         List<String> defi = Arrays.asList(listDefis.get(index).split(","));
 
-        System.out.println("loadDefi 2");
         /**
         // tant que l'on a pas un défi question
         while (!defi.get(0).equals(categorie)) {
@@ -169,10 +168,9 @@ public class Defi_Questions extends Activity{
             defi = new ArrayList<>();
             defi = Arrays.asList(listDefis.get(index).split(","));
         }*/
-        System.out.println("loadDefi 3");
         // Initialisation du défis
-        this.question = defi.get(1);
-        this.answer = defi.get(2);
+        this.question = defi.get(0);
+        this.answer = defi.get(1);
     }
 
     public static int randomInt(int max) {
