@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,25 +19,26 @@ import fr.esir.progm.wifidirectdemo.R;
 
 public class Defi_slide extends AppCompatActivity {
 
-    TextView text_name_player,text_score_player,text_number_defi;
-    String current_defi_string = "Défi n° ";
-    int score;
-    String player_name;
-    int nb_defi;
-    int mode;
+    private TextView text_name_player,text_score_player,text_number_defi;
+    private final String current_defi_string = "Défi n° ";
+    private int score;
+    private String player_name;
+    private int nb_defi;
+    private int mode;
     //
-    ImageView movement1_image,movement2_image,movement3_image;
-    String[] mouvement_tab = {"UP", "RIGHT", "DOWN", "LEFT"};
-    ArrayList<String> mouvement_tab_user = new ArrayList<String>();
-    ArrayList<String> mouvement_tab_ref = new ArrayList<String>();
+    private ImageView movement1_image,movement2_image,movement3_image;
+    private final String[] mouvement_tab = {"UP", "RIGHT", "DOWN", "LEFT"};
+    private ArrayList<String> mouvement_tab_user = new ArrayList<String>();
+    private ArrayList<String> mouvement_tab_ref = new ArrayList<String>();
     private SwipeGestureDetector gestureDetector;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_slidedefis);
         initAff();
-
+        startTime = System.nanoTime();
     }
 
     public void initAff(){
@@ -51,6 +54,7 @@ public class Defi_slide extends AppCompatActivity {
         text_number_defi.setText(current_defi_string + String.valueOf(nb_defi));
 
         text_score_player = (TextView) findViewById(R.id.scorePlayer_textview_compass);
+
         score = intent.getIntExtra("PLAYER_SCORE", 0);
         if(score<10){
             text_score_player.setText("0"+String.valueOf(score));
@@ -131,10 +135,13 @@ public class Defi_slide extends AppCompatActivity {
         mouvement_tab_user.add(directionTab);
 
         if(mouvement_tab_user.size()==3){
+            long endTime = System.nanoTime();
+            // Calculation of elapsed time in milliseconds
+            long elapsedTimeMs = (endTime - startTime) / 1000000;
             System.out.println(mouvement_tab_user.get(0)+"-"+mouvement_tab_user.get(1)+"-"+mouvement_tab_user.get(2));
             boolean same = true;
             String titlePopUp = "Félicitation";
-            String textPopUp = "Vous avez réussi !";
+            String textPopUp = "Vous avez réussi !\\nVous avez mis \nVous avez mis "+elapsedTimeMs+" ms";
 
             for (int i = 0; i < mouvement_tab_user.size(); i++) {
                 // Vérifier que les éléments sont égaux
@@ -145,6 +152,13 @@ public class Defi_slide extends AppCompatActivity {
                     textPopUp = "Vous avez échoué, les mouvements ne correspondent pas !";
                 }
             }
+
+            if (elapsedTimeMs > 5000) {
+                same = false;
+                titlePopUp = "Désolé !";
+                textPopUp = "Vous avez échoué, le temps est écoulé !\nVous avez mis "+elapsedTimeMs+" ms";
+            }
+
             if(same){
                 score+=1;
             }

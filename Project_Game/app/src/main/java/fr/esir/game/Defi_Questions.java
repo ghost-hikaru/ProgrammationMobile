@@ -27,36 +27,37 @@ public class Defi_Questions extends Activity{
     private String answer_player;
     private String answer;
     private Activity Ctx;
-    String challenge_file = "challenge.csv";
-    TextView text_name_player;
-    TextView text_score_player;
-    TextView text_number_defi;
-    String current_defi_string = "Défi n° ";
-    int nb_defi;
-    int mode;
-    int current_score;
-    String current_name;
-    TextView content_defi;
-    EditText edit_answer;
-    Button valid_button;
+    private String challenge_file = "challenge.csv";
+    private TextView text_name_player;
+    private TextView text_score_player;
+    private TextView text_number_defi;
+    private final String current_defi_string = "Défi n° ";
+    private int nb_defi;
+    private int mode;
+    private int current_score;
+    private String current_name;
+    private TextView content_defi;
+    private EditText edit_answer;
+    private Button valid_button;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("Début de la création de l'activité");
-        setContentView(R.layout.layout_training);
-        System.out.println("Layout chargé");
+        setContentView(R.layout.layout_question);
         InitAff();
-        System.out.println("Affichage initialisé");
+        long startTime = System.nanoTime();
         valid_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long endTime = System.nanoTime();
+                // Calculation of elapsed time in milliseconds
+                long elapsedTimeMs = (endTime - startTime) / 1000000;
                 answer_player = edit_answer.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Questions.this);
                 builder.setTitle("Résultat de la question : ");
                 if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll(" ", ""))){
-                    builder.setMessage("Bravo vous avez entré la bonne réponse");
+                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" ms");
                     current_score += 1;
                 }
                 else{
@@ -114,6 +115,18 @@ public class Defi_Questions extends Activity{
         content_defi.setText(affQuestion);
         edit_answer = (EditText) findViewById(R.id.response_edittext_training);
         valid_button = (Button) findViewById(R.id.validate_button_training);
+
+        if (mode == 1){
+            Button back_menu = (Button) findViewById(R.id.back_menu_button_question);
+            back_menu.setVisibility(Button.VISIBLE);
+            back_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_Questions.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+        }
     }
 
     public String read(){

@@ -20,5 +20,6 @@
     <string name="score">Score</string>
     <string name="name_player">name_player</string>
     <string name="disponible_device_fr">Appareils disponibles :</string>
+    <string name="backtomenuFR">Retour au menu</string>
 
 </resources>

@@ -115,6 +115,7 @@
 
 
         <LinearLayout
+            android:id="@+id/progression_linearlayout_compass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/compass_image"
@@ -143,6 +144,18 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/back_button_compass"
+            android:layout_below="@id/progression_linearlayout_compass"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/white"
+            android:text="@string/backtomenuFR"
+            android:fontFamily="@font/font_pixel"
+            android:background="@color/teal_700"
+            android:visibility="invisible"
+            />
     </RelativeLayout>
-
 </RelativeLayout>

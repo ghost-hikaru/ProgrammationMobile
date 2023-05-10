@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/teal_700"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <!-- Icône au centre -->
+            <ImageView
+                android:id="@+id/personn_icon_trainning"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/user" />
+
+            <!-- Texte à gauche de l'icône -->
+            <TextView
+                android:id="@+id/namePlayer_textview_training"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name_player"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_pixel"/>
+        </LinearLayout>
+
+        <!-- Texte en dessous de l'icône -->
+        <TextView
+            android:id="@+id/scorePlayer_textview_training"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"/>
+    </RelativeLayout>
+
+
+    <!-- Rectangle gris pour le bas -->
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_layout"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/teal_700">
+
+        <!-- Mini-titre -->
+        <TextView
+            android:id="@+id/title_defi_textview_training"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Défis n°Default"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Texte en dessous du mini-titre -->
+        <TextView
+            android:id="@+id/content_defi_textview_training"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_defi_textview_training"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel"
+            android:text="Encore du texte etfeezfezfezfefe explication du défisgnhhhhhhhhhhhh"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <!-- <LinearLayout
+        android:id="@+id/buttonMult1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+
+        android:layout_below="@id/bottom_layout"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+
+            android:text="Button 1"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button 2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/buttonMult1"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_marginRight="30dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button 3"/>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button 4"/>
+    </LinearLayout>-->
+
+    <!-- EditText pour la réponse -->
+    <EditText
+        android:id="@+id/response_edittext_training"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:hint="Votre réponse..."
+        android:inputType="text"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/bottom_layout"/>
+
+    <!-- Button pour valider la réponse -->
+    <Button
+        android:id="@+id/validate_button_training"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valider"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:layout_below="@id/response_edittext_training"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/back_menu_button_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour au menu"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

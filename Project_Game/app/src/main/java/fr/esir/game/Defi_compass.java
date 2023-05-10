@@ -8,8 +8,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +24,12 @@ import fr.esir.progm.wifidirectdemo.R;
 
 public class Defi_compass extends AppCompatActivity implements SensorEventListener {
     private TextView text_name_player,text_score_player,text_number_defi, text_degree, text_content;
-    String current_defi_string = "Défi n° ";
-    int score;
-    String player_name;
-    int nb_defi;
-    int mode;
-    //
+    private final String current_defi_string = "Défi n° ";
+    private int score;
+    private String player_name;
+    private int nb_defi;
+    private int mode;
+
     // device sensor manager
     private SensorManager SensorManage;
     // define the compass picture that will be use
@@ -35,13 +37,17 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
     // record the angle turned of the compass picture
     private float DegreeStart = 0f;
     // target
-    public int targetDegree;
+    private int targetDegree;
+    private long startTime;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_compassdefi);
         initAff();
+        startTime = System.nanoTime();
     }
 
     private void initAff() {
@@ -72,7 +78,20 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
         // Générer un degré cible aléatoire entre 0 et 359
         Random random = new Random();
         targetDegree = random.nextInt(360);
-        text_content.setText("Trouver l'orientation : "+targetDegree);
+        text_content.setText("Trouver l'orientation : "+targetDegree+"\nEn moins de 10 secondes !");
+
+        if (mode == 1){
+            Button back_button = findViewById(R.id.back_button_compass);
+            back_button.setVisibility(Button.VISIBLE);
+
+            back_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_compass.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+        }
     }
 
     @Override
@@ -99,26 +118,51 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
             vibrator.vibrate(50); // Vibrate for 50 milliseconds
         }*/
         if ((int) degree == targetDegree){
-            onPause();
-            score += 1;
-            AlertDialog.Builder builder = new AlertDialog.Builder(Defi_compass.this);
-            builder.setMessage("Vous avez trouvé la bonne direction !").setTitle("Félicitation");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Intent intent;
-                    if(mode == 1){
-                         intent = new Intent(Defi_compass.this, TrainingGameManager.class);
-                    }else {
-                         intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
-                    }
-                    intent.putExtra("PLAYER_NAME", player_name);
-                    intent.putExtra("PLAYER_SCORE", score);
-                    intent.putExtra("CURRENT_DEFIS", nb_defi);
-                    startActivity(intent);
+            long endTime = System.nanoTime();
+            // Calculation of elapsed time in milliseconds
+            long elapsedTimeMs = (endTime - startTime) / 1000000;
+            AlertDialog.Builder builder;
+            if (elapsedTimeMs < 10000) {
+                onPause();
+                score += 1;
+                builder = new AlertDialog.Builder(Defi_compass.this);
+                builder.setMessage("Vous avez trouvé la bonne direction !\nVous avez mis "+elapsedTimeMs+" ms").setTitle("Félicitation");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent;
+                        if (mode == 1) {
+                            intent = new Intent(Defi_compass.this, TrainingGameManager.class);
+                        } else {
+                            intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
+                        }
+                        intent.putExtra("PLAYER_NAME", player_name);
+                        intent.putExtra("PLAYER_SCORE", score);
+                        intent.putExtra("CURRENT_DEFIS", nb_defi);
+                        startActivity(intent);
 
-                }
-            });
+                    }
+                });
+            } else {
+                builder = new AlertDialog.Builder(Defi_compass.this);
+                builder.setMessage("Vous avez trouvé la bonne direction ! Mais pas à temps :(\nVous avez mis "+elapsedTimeMs+" ms").setTitle("Dommage");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent;
+                        if (mode == 1) {
+                            intent = new Intent(Defi_compass.this, TrainingGameManager.class);
+                        } else {
+                            intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
+                        }
+                        intent.putExtra("PLAYER_NAME", player_name);
+                        intent.putExtra("PLAYER_SCORE", score);
+                        intent.putExtra("CURRENT_DEFIS", nb_defi);
+                        startActivity(intent);
+
+                    }
+                });
+            }
             AlertDialog dialog = builder.create();
             dialog.show();
         }
