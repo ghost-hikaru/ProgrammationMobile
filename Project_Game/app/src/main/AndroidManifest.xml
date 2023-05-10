@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Project_Game"
+        android:theme="@style/Theme.WifiDirectDemo"
         tools:targetApi="31" >
 
         <activity
@@ -47,6 +47,8 @@
         <activity android:name="fr.esir.game.Defi_compass"/>
         <activity android:name="fr.esir.game.Defi_slide"/>
         <activity android:name="fr.esir.game.LeaderBoardActivity"/>
+        <activity android:name="fr.esir.game.Defi_Blindtest"/>
+        <activity android:name="fr.esir.game.AddMusicActivity"/>
 
         <activity
             android:name=".WifiDirectActivity"

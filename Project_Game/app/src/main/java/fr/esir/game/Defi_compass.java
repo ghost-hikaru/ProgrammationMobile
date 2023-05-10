@@ -126,7 +126,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
                 onPause();
                 score += 1;
                 builder = new AlertDialog.Builder(Defi_compass.this);
-                builder.setMessage("Vous avez trouvé la bonne direction !\nVous avez mis "+elapsedTimeMs+" ms").setTitle("Félicitation");
+                builder.setMessage("Vous avez trouvé la bonne direction !\nVous avez mis "+elapsedTimeMs+" s").setTitle("Félicitation");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

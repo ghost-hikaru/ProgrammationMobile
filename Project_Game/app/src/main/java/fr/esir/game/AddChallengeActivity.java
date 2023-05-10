@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class AddChallengeActivity extends Activity {
 
     @Override

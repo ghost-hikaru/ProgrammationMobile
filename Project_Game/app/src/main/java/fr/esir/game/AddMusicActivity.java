@@ -1,4 +1,4 @@
-package fr.esir.project_game;
+package fr.esir.game;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,9 +24,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
+import fr.esir.progm.wifidirectdemo.R;
+
 
 public class AddMusicActivity extends AppCompatActivity {
 

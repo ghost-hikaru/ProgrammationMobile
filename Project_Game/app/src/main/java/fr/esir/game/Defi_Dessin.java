@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     private ImageView imageView;
     private Bitmap bitmap;
@@ -124,7 +125,7 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                     isCircle = true;
                     score++;
                     AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Dessin.this);
-                    builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" ms");
+                    builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" s");
                     builder.setCancelable(false);
                     builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                         @Override

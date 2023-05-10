@@ -11,10 +11,11 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:layout_marginTop="220dp"
             android:id="@+id/title_textview_choose_train"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choissisez le jeu"
+            android:text="Choisissez le jeu"
             android:textColor="@color/white"
             android:fontFamily="@font/font_pixel"
             android:textSize="25sp"

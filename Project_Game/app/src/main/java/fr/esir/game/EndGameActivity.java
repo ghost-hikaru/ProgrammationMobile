@@ -68,9 +68,6 @@ public class EndGameActivity extends Activity {
         text_name = (TextView) findViewById(R.id.namePlayer_textview_endgame);
         text_name.setText(intent.getStringExtra("PLAYER_NAME"));
 
-        ImageView GIF_end;
-        GIF_end = (ImageView) findViewById(R.id.imageview_GIF_end);
-
         // Display the leaderboard
         readScore();
 
