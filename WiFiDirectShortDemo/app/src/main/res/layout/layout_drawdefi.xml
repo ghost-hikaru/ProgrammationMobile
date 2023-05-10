@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:elevation="2dp"
+        android:id="@+id/top_layout"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@color/teal_700"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <!-- Icône au centre -->
+            <ImageView
+                android:id="@+id/personn_icon_draw"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/user" />
+
+            <!-- Texte à gauche de l'icône -->
+            <TextView
+                android:id="@+id/namePlayer_textview_draw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_player"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Texte en dessous de l'icône -->
+        <TextView
+            android:id="@+id/scorePlayer_textview_draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:elevation="2dp"
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_layout"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@color/teal_700">
+
+        <!-- Mini-titre -->
+        <TextView
+            android:id="@+id/title_defi_textview_draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Défis n°Default"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Texte en dessous du mini-titre -->
+        <TextView
+            android:id="@+id/content_defi_textview_draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_defi_textview_draw"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="30dp"
+            android:text="Dessinez votre plus beau cercle !"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:elevation="1dp"
+        android:id="@+id/drawing_canvas_drawdefi"
+        android:padding="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scaleType="fitCenter" />
+
+    <Button
+        android:id="@+id/clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+</RelativeLayout>

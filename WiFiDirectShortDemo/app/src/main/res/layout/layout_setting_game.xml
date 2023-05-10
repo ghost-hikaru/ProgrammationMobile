@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey">
+
+    <TextView
+        android:id="@+id/title_textview_setting_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Préparation de la partie"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/name_player_edittext_setting_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:layout_gravity="center"
+        android:hint="Nom du joueur" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/p2POnOff_button_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/ic_action_on_off"
+            android:textColor="@color/white"
+            />
+
+        <Button
+            android:id="@+id/discover_button_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/ic_action_discover"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/frag_list"
+            class="fr.esir.progm.wifidirectdemo.DeviceListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="176dp"
+            tools:layout="@layout/fragment_device_list">
+            <!-- Preview: layout=@layout/row_devices -->
+        </fragment>
+
+        <fragment
+            class="fr.esir.progm.wifidirectdemo.DeviceDetailFragment"
+            android:id="@+id/frag_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- Preview: layout=@layout/device_detail -->
+        </fragment>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/beginGame_button_setting"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:text="Commencer la partie"/>
+
+
+</LinearLayout>

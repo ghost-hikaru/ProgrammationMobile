@@ -64,7 +64,7 @@ public class FileTransferService extends IntentService {
                 } catch (FileNotFoundException e) {
                     Log.d(WifiDirectActivity.TAG, e.toString());
                 }
-                DeviceDetailFragment.copyFile(is, stream);
+                //DeviceDetailFragment.copyFile(is, stream);
                 Log.d(WifiDirectActivity.TAG, "Client: Data written");
             } catch (IOException e) {
                 Log.e(WifiDirectActivity.TAG, e.getMessage());
