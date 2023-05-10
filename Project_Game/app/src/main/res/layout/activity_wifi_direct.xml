@@ -11,15 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <fragment
-            class="fr.esir.wifi.DeviceListFragment"
+            class="fr.esir.progm.wifidirectdemo.DeviceListFragment"
             android:id="@+id/frag_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/phone_list_height"
             tools:layout="@layout/fragment_device_list">
             <!-- Preview: layout=@layout/row_devices -->
         </fragment>
         <fragment
-            class="fr.esir.wifi.DeviceDetailFragment"
+            class="fr.esir.progm.wifidirectdemo.DeviceDetailFragment"
             android:id="@+id/frag_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
