@@ -152,7 +152,7 @@ public class Defi_slide extends AppCompatActivity {
                 }
             }
 
-            if (elapsedTimeMs > 5000) {
+            if (elapsedTimeMs > 5) {
                 same = false;
                 titlePopUp = "Désolé !";
                 textPopUp = "Vous avez échoué, le temps est écoulé !\nVous avez mis "+elapsedTimeMs+" ms";
