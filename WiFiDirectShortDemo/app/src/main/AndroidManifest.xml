@@ -44,6 +44,8 @@
         <activity android:name="fr.esir.game.Defi_compass"/>
         <activity android:name="fr.esir.game.Defi_slide"/>
         <activity android:name="fr.esir.game.LeaderBoardActivity"/>
+        <activity android:name="fr.esir.game.Defi_Blindtest"/>
+        <activity android:name="fr.esir.game.AddMusicActivity"/>
 
         <activity
             android:name=".WifiDirectActivity"/>

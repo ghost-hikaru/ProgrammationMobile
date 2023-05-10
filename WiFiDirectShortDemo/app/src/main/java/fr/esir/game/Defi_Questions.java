@@ -20,6 +20,7 @@ import java.util.Random;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 public class Defi_Questions extends Activity{
 
     private String categorie;
@@ -27,36 +28,37 @@ public class Defi_Questions extends Activity{
     private String answer_player;
     private String answer;
     private Activity Ctx;
-    String challenge_file = "challenge.csv";
-    TextView text_name_player;
-    TextView text_score_player;
-    TextView text_number_defi;
-    String current_defi_string = "Défi n° ";
-    int nb_defi;
-    int mode;
-    int current_score;
-    String current_name;
-    TextView content_defi;
-    EditText edit_answer;
-    Button valid_button;
+    private String challenge_file = "challenge.csv";
+    private TextView text_name_player;
+    private TextView text_score_player;
+    private TextView text_number_defi;
+    private final String current_defi_string = "Défi n° ";
+    private int nb_defi;
+    private int mode;
+    private int current_score;
+    private String current_name;
+    private TextView content_defi;
+    private EditText edit_answer;
+    private Button valid_button;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("Début de la création de l'activité");
-        setContentView(R.layout.layout_training);
-        System.out.println("Layout chargé");
+        setContentView(R.layout.layout_question);
         InitAff();
-        System.out.println("Affichage initialisé");
+        long startTime = System.nanoTime();
         valid_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long endTime = System.nanoTime();
+                // Calculation of elapsed time in seconds
+                long elapsedTimeMs = (endTime - startTime) / 1000000000;
                 answer_player = edit_answer.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Questions.this);
                 builder.setTitle("Résultat de la question : ");
                 if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll(" ", ""))){
-                    builder.setMessage("Bravo vous avez entré la bonne réponse");
+                    builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" s");
                     current_score += 1;
                 }
                 else{
@@ -114,6 +116,18 @@ public class Defi_Questions extends Activity{
         content_defi.setText(affQuestion);
         edit_answer = (EditText) findViewById(R.id.response_edittext_training);
         valid_button = (Button) findViewById(R.id.validate_button_training);
+
+        if (mode == 1){
+            Button back_menu = (Button) findViewById(R.id.back_menu_button_question);
+            back_menu.setVisibility(Button.VISIBLE);
+            back_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_back = new Intent(Defi_Questions.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+        }
     }
 
     public String read(){
@@ -137,8 +151,7 @@ public class Defi_Questions extends Activity{
         // transformation en tableau --> 1 case = 1 défis
         List<String> listDefis = new ArrayList<>();
         listDefis = Arrays.asList(challenge_file.split(";"));
-
-        System.out.println("loadDefi 1");
+        System.out.println(challenge_file);
 
         // on choisit un défis au hasard
         int index = randomInt(listDefis.size());
@@ -146,7 +159,6 @@ public class Defi_Questions extends Activity{
         // on récupère le défis
         List<String> defi = Arrays.asList(listDefis.get(index).split(","));
 
-        System.out.println("loadDefi 2");
         /**
         // tant que l'on a pas un défi question
         while (!defi.get(0).equals(categorie)) {
@@ -156,10 +168,9 @@ public class Defi_Questions extends Activity{
             defi = new ArrayList<>();
             defi = Arrays.asList(listDefis.get(index).split(","));
         }*/
-        System.out.println("loadDefi 3");
         // Initialisation du défis
-        this.question = defi.get(1);
-        this.answer = defi.get(2);
+        this.question = defi.get(0);
+        this.answer = defi.get(1);
     }
 
     public static int randomInt(int max) {

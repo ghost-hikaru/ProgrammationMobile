@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import fr.esir.progm.wifidirectdemo.R;
 
+
 //import com.bumptech.glide.Glide;
 
 
@@ -69,9 +70,7 @@ public class TrainingGameManager extends Activity {
         });
         blind_but.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //isButtonClickedDessin = true;
-            }
+            public void onClick(View view) { launchDefiBlindtest(); }
         });
         back_but.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +132,16 @@ public class TrainingGameManager extends Activity {
     public void launchDefiCompass(){
         // Start fr.esir.game.Defi_compass
         Intent intent = new Intent(TrainingGameManager.this, Defi_compass.class);
+        intent.putExtra("PLAYER_NAME", current_name);
+        intent.putExtra("PLAYER_SCORE", current_score);
+        intent.putExtra("CURRENT_DEFIS", nb_defi);
+        intent.putExtra("MODE",1);
+        startActivity(intent);
+    }
+
+    public void launchDefiBlindtest(){
+        // Start Defi_Blindtest
+        Intent intent = new Intent(TrainingGameManager.this, Defi_Blindtest.class);
         intent.putExtra("PLAYER_NAME", current_name);
         intent.putExtra("PLAYER_SCORE", current_score);
         intent.putExtra("CURRENT_DEFIS", nb_defi);

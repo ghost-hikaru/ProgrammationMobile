@@ -27,7 +27,7 @@ public class OnePlayerGameManager extends Activity{
         }
         else {
             Random rand = new Random();
-            int random = rand.nextInt(5);
+            int random = rand.nextInt(6);
             switch (random) {
                 case 0:
                     launchDefiQuestions();
@@ -44,10 +44,20 @@ public class OnePlayerGameManager extends Activity{
                 case  4:
                     launchDefiSlide();
                     break;
+                case 5 :
+                    launchBlindTest();
+                    break;
             }
         }
     }
-
+    private void launchBlindTest() {
+        // Start BlindTest
+        Intent intent = new Intent(OnePlayerGameManager.this, Defi_Blindtest.class);
+        intent.putExtra("PLAYER_NAME", current_name);
+        intent.putExtra("PLAYER_SCORE", current_score);
+        intent.putExtra("CURRENT_DEFIS", nb_defi);
+        startActivity(intent);
+    }
     private void launchDefiSlide() {
         // Start fr.esir.game.Defi_compass
         Intent intent = new Intent(OnePlayerGameManager.this, Defi_slide.class);

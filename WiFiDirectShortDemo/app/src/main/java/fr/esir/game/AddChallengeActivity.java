@@ -9,12 +9,12 @@ import android.widget.EditText;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
 import fr.esir.progm.wifidirectdemo.R;
+
 
 public class AddChallengeActivity extends Activity {
 
@@ -35,16 +35,13 @@ public class AddChallengeActivity extends Activity {
     }
 
     private void validation_form() {
-        EditText cat_edit = (EditText) findViewById(R.id.cat_edittext_add_challenge);
         EditText question = (EditText) findViewById(R.id.question_edittext_add_challenge);
         EditText answer_1 = (EditText) findViewById(R.id.answer1_edittext_add_challenge);
 
         String oldContent = read();
         try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
-            String newContent = oldContent + cat_edit.getText().toString()+","+question.getText().toString()+","+answer_1.getText().toString().toLowerCase().replaceAll(" ","")+";";
+            String newContent = oldContent + question.getText().toString()+","+answer_1.getText().toString().toLowerCase().replaceAll(" ","")+";";
             fos.write(newContent.getBytes());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

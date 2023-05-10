@@ -61,7 +61,7 @@
 
         <fragment
             android:id="@+id/frag_list"
-            class="fr.esir.progm.wifidirectdemo.DeviceListFragment"
+            class="fr.esir.wifi.DeviceListFragment"
             android:layout_width="match_parent"
             android:layout_height="176dp"
             tools:layout="@layout/fragment_device_list">
@@ -69,7 +69,7 @@
         </fragment>
 
         <fragment
-            class="fr.esir.progm.wifidirectdemo.DeviceDetailFragment"
+            class="fr.esir.wifi.DeviceDetailFragment"
             android:id="@+id/frag_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
