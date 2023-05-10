@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WifiDirectDemo</string>
+    <string name="app_name">MelZo</string>
     <string name="enable_p2p_button">P2P On/Off</string>
     <string name="discover_peers_button">Discover</string>
     <string name="connect_peer_button">Connect</string>
@@ -13,5 +13,12 @@
     <string name="p2p_off_warning">Enable P2P from action bar button above or system settings</string>
     <string name="group_owner_text">"Am I the Group Owner? "</string>
     <string name="label_me">ME</string>
-    <string name="label_peers">PEERS</string>
+    <string name="label_peers">Appareils disponibles</string>
+    <string name="retour_au_menu">Retour au menu</string>
+    <string name="score_final_default">Score final : default</string>
+    <string name="player_default">player default</string>
+    <string name="score">Score</string>
+    <string name="name_player">name_player</string>
+    <string name="disponible_device_fr">Appareils disponibles :</string>
+
 </resources>
