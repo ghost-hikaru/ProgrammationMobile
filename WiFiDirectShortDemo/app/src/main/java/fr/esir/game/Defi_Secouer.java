@@ -36,7 +36,7 @@ public class Defi_Secouer extends AppCompatActivity {
     private int nb_defi;
     private int mode;
     private long startTime;
-    private float SHAKE_THRESHOLD = 30.0f;
+    private float SHAKE_THRESHOLD = 15.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class Defi_Secouer extends AppCompatActivity {
                 double accelerationMagnitude = Math.sqrt(Math.pow(accelerationX, 2) + Math.pow(accelerationY, 2) + Math.pow(accelerationZ, 2));
                 if (accelerationMagnitude > SHAKE_THRESHOLD) {
                     // Augmenter la valeur de la barre en fonction de l'accélération
-                    progress += (int) (accelerationMagnitude / SHAKE_THRESHOLD * 5);
+                    progress += (int) (accelerationMagnitude / SHAKE_THRESHOLD * 3);
                     if (progress >= 500) {
                         long endTime = System.nanoTime();
                         // Calculation of elapsed time in seconds
