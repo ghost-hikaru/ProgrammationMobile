@@ -86,7 +86,7 @@ public class Leaderbord {
 
         // retourner les 4 premiers scores
         Map<String, String> topFourMap = new LinkedHashMap<>();
-        for (int i = 0; i < 4 && i < sortedEntries.size(); i++) {
+        for (int i = 0;  i < sortedEntries.size(); i++) {
             topFourMap.put(sortedEntries.get(i).getKey(), String.valueOf(sortedEntries.get(i).getValue()));
         }
 

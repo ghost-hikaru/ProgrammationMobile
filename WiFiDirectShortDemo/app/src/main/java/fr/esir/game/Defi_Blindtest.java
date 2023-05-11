@@ -123,7 +123,6 @@ public class Defi_Blindtest extends Activity {
         Random rand = new Random();
         if (rand.nextInt(2) == 1) {
             selectRandomFromFilesDir();
-            fromFile = true;
         }
         else {
             selectRandomFromRawDir();
@@ -141,10 +140,12 @@ public class Defi_Blindtest extends Activity {
                     play_button.setText(play_music_string);
                 }
                 else {
-                    if (fromFile)
+                    if (fromFile) {
                         playMp3(uri);
-                    else
+                    }
+                    else{
                         playMp3(resId);
+                    }
                     isPlaying = true;
                     play_button.setText(stop_music_string);
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -185,7 +186,7 @@ public class Defi_Blindtest extends Activity {
         List<File> mp3Files = new ArrayList<>();
         for (File file : files) {
             if (file.isFile() && file.getName().endsWith(".mp3")) {
-                System.out.println("Fichier MP3 trouvé : " + file.getName());
+                fromFile = true;
                 mp3Files.add(file);
             }
         }
@@ -193,11 +194,9 @@ public class Defi_Blindtest extends Activity {
         if (mp3Files.isEmpty()) {
             // Aucun fichier MP3 trouvé, gestion de l'erreur ou sortie de la méthode
             fromFile = false;
-            System.out.println("Aucun fichier MP3 trouvé dans le dossier files");
             selectRandomFromRawDir();
             return;
         }
-
         Random random = new Random();
         int randomIndex = random.nextInt(mp3Files.size());
         File randomMp3File = mp3Files.get(randomIndex);
@@ -213,7 +212,6 @@ public class Defi_Blindtest extends Activity {
     private void selectRandomFromRawDir() {
         Resources resources = this.getResources();
         String packageName = this.getPackageName();
-        System.out.println("Package name : " + packageName);
 
         int resourceId = resources.getIdentifier("mp3_files", "array", packageName);
         String[] mp3Files = resources.getStringArray(resourceId);
