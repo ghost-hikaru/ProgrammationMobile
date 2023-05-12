@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,6 +109,20 @@ public class Defi_slide extends AppCompatActivity {
             movement3_image.setImageResource(R.drawable.ic_arrow_left_foreground);
         }
         gestureDetector= new SwipeGestureDetector ( this );
+/**
+        if (mode == 1){
+            Button back_menu = (Button) findViewById(R.id.back_menu_button_slide);
+            back_menu.setVisibility(Button.VISIBLE);
+            System.out.println("Ici");
+            back_menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Back to menu");
+                    Intent intent_back = new Intent(Defi_slide.this, TrainingGameManager.class);
+                    startActivity(intent_back);
+                }
+            });
+        }*/
 
     }
 
@@ -158,7 +174,7 @@ public class Defi_slide extends AppCompatActivity {
                 }
             }
 
-            if (elapsedTimeMs > 5000) {
+            if (elapsedTimeMs > 5) {
                 same = false;
                 titlePopUp = "Désolé !";
                 textPopUp = "Vous avez échoué, le temps est écoulé !\nVous avez mis "+elapsedTimeMs+" ms";

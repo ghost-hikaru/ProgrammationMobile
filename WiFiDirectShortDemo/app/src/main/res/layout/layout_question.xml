@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:background="@drawable/background_question2">
 
     <RelativeLayout
         android:id="@+id/top_layout"
@@ -150,7 +150,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:fontFamily="@font/font_pixel"
         android:hint="Votre réponse..."
         android:inputType="text"
