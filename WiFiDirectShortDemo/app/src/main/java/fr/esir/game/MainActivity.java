@@ -40,7 +40,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_home);
 
-        SetFiles();
+        setFiles();
+        setFiles();
 
         
         Button play_but = (Button) findViewById(R.id.button_play_home);
@@ -147,7 +148,7 @@ public class MainActivity extends Activity {
     }
 
 
-    public void SetFiles() {
+    public void setFiles() {
         String[] files = this.fileList();
         if (files.length > 0) {
             boolean existeChallenge = false;
@@ -159,8 +160,9 @@ public class MainActivity extends Activity {
                     j++;
                 }
             }
-            if (!existeChallenge) {
-                File file = new File(this.getFilesDir(), challenge_file);
+            File file = new File(this.getFilesDir(), challenge_file);
+            if (!existeChallenge | isFileEmpty(file)){
+                System.out.println("Création du fichier challenge");
                 try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
                     // Récupère le contenu du fichier RawQuestion depuis le dossier raw
                     Resources resources = getResources();
@@ -178,29 +180,6 @@ public class MainActivity extends Activity {
                     inputStream.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
-                }
-            }
-            else {
-                File file = new File(this.getFilesDir(), challenge_file);
-                if (isFileEmpty(file)){
-                    try (FileOutputStream fos = openFileOutput("challenge.csv", Context.MODE_PRIVATE)) {
-                        // Récupère le contenu du fichier RawQuestion depuis le dossier raw
-                        Resources resources = getResources();
-                        InputStream inputStream = resources.openRawResource(R.raw.rawquestions);
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            System.out.println("line " + line);
-                            fos.write(line.getBytes());
-                        }
-
-                        // Ferme les flux
-                        reader.close();
-                        inputStream.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
                 }
             }
         }

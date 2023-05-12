@@ -60,8 +60,12 @@ public class Leaderbord {
 
         // séparer le string en tableau de chaînes de caractères
         String scoreString = read();
+        if (scoreString.equals("")){
+            Map<String, String> score_players = new LinkedHashMap<>();
+            score_players.put("Aucun joueur n'a enregistré un score pour le moment", "");
+            return score_players;
+        }
         String[] scoreArray = scoreString.split(";");
-
         // parcourir le tableau de chaînes de caractères
         for (String score : scoreArray) {
             // séparer chaque score en nom et score séparés par une virgule
@@ -85,12 +89,12 @@ public class Leaderbord {
         Collections.sort(sortedEntries, (e1, e2) -> e2.getValue().compareTo(e1.getValue()));
 
         // retourner les 4 premiers scores
-        Map<String, String> topFourMap = new LinkedHashMap<>();
+        Map<String, String> score_players = new LinkedHashMap<>();
         for (int i = 0;  i < sortedEntries.size(); i++) {
-            topFourMap.put(sortedEntries.get(i).getKey(), String.valueOf(sortedEntries.get(i).getValue()));
+            score_players.put(sortedEntries.get(i).getKey(), String.valueOf(sortedEntries.get(i).getValue()));
         }
 
-        return topFourMap;
+        return score_players;
     }
 
     /**
