@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Defi_Secouer"
     android:background="@drawable/background_fleche">
 
     <RelativeLayout
@@ -125,5 +124,16 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <Button
+        android:layout_below="@id/bottom_layout"
+        android:id="@+id/back_menu_button_slide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour au menu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:elevation="10dp"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
