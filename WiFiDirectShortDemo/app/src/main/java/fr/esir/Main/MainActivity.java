@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.Main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +24,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import fr.esir.Form.AddChallengeActivity;
+import fr.esir.Form.AddMusicActivity;
+import fr.esir.LeaderBoard.LeaderBoardActivity;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 import fr.esir.progm.wifidirectdemo.WifiDirectActivity;
 
@@ -55,7 +60,7 @@ public class MainActivity extends Activity {
         /*Logo_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayer = MediaPlayer.create(fr.esir.game.MainActivity.this, R.raw.music);
+                mediaPlayer = MediaPlayer.create(fr.esir.Main.MainActivity.this, R.raw.music);
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {

@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -38,6 +41,8 @@ public class Defi_Questions extends Activity{
     private TextView content_defi;
     private EditText edit_answer;
     private Button valid_button;
+    ArrayList<Integer> tab_game;
+
 
 
     @Override
@@ -70,6 +75,9 @@ public class Defi_Questions extends Activity{
                         Intent intent;
                         if(mode == 1){
                             intent = new Intent(Defi_Questions.this, TrainingGameManager.class);
+                        }else if(mode == 2) {
+                            intent = new Intent(Defi_Questions.this, MultiPlayerGameManager.class);
+                            intent.putExtra("ArrayList",tab_game);
                         }else {
                             intent = new Intent(Defi_Questions.this, OnePlayerGameManager.class);
                         }
@@ -87,7 +95,7 @@ public class Defi_Questions extends Activity{
     public void InitAff(){
         Intent intent = getIntent();
         mode = intent.getIntExtra("MODE",0);
-
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
         current_name = intent.getStringExtra("PLAYER_NAME");
         current_score = intent.getIntExtra("PLAYER_SCORE", 0);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);

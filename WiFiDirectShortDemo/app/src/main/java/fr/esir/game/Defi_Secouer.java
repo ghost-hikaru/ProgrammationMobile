@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -36,7 +41,9 @@ public class Defi_Secouer extends AppCompatActivity {
     private int nb_defi;
     private int mode;
     private long startTime;
-    private float SHAKE_THRESHOLD = 15.0f;
+    private float SHAKE_THRESHOLD = 50.0f;
+    ArrayList<Integer> tab_game;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,7 @@ public class Defi_Secouer extends AppCompatActivity {
     }
     private void initAff(){
         mode = intent.getIntExtra("MODE",0);
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
 
         shakeProgressBar = findViewById(R.id.shakeProgressBar_shake);
         NbSecouage = findViewById(R.id.nombreDeSecouage_shake);
@@ -112,7 +120,10 @@ public class Defi_Secouer extends AppCompatActivity {
                                     Intent intent;
                                     if (mode == 1) {
                                         intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
-                                    } else {
+                                    }else if(mode == 2) {
+                                        intent = new Intent(Defi_Secouer.this, MultiPlayerGameManager.class);
+                                        intent.putExtra("ArrayList",tab_game);
+                                    }else {
                                         intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
                                     }
                                     intent.putExtra("PLAYER_NAME", player_name);

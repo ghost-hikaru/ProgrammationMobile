@@ -16,9 +16,11 @@
 
 package fr.esir.progm.wifidirectdemo;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.WpsInfo;
@@ -32,12 +34,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +49,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
-import fr.esir.game.MultiPlayerGameManager;
+import fr.esir.manager.MultiPlayerGameManager;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -128,11 +130,27 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
                         System.out.println("Tableau envoyé à J1 :");showContent(tab_send);
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Début d'une nouvelle partie 2 joueur");
+                        builder.setMessage("Veuillez entrer votre nom de joueur : ");
 
-                        Intent gameIntent = new Intent(getActivity(), MultiPlayerGameManager.class);
-                        gameIntent.putExtra("ArrayList", tab_send);
-                        gameIntent.putExtra("PLAYER_NAME","J1");
-                        getActivity().startActivity(gameIntent);
+                        final EditText editText_dialog = new EditText(getActivity());
+                        builder.setView(editText_dialog);
+
+                        builder.setPositiveButton("Commencer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String name_player = editText_dialog.getText().toString();
+
+
+                                Intent gameIntent = new Intent(getActivity(), MultiPlayerGameManager.class);
+                                gameIntent.putExtra("ArrayList", tab_send);
+                                gameIntent.putExtra("PLAYER_NAME",name_player);
+                                getActivity().startActivity(gameIntent);
+                            }
+                        });
+                        builder.show();
+
                     }
                 });
 
@@ -292,10 +310,26 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
                 System.out.println("Tableau envoyé à J2 :");showContent(tab_send);
                 // Start the MultiPlayerGameManager activity after file transfer
-                Intent gameIntent = new Intent(context, MultiPlayerGameManager.class);
-                gameIntent.putExtra("ArrayList", tab_send);
-                gameIntent.putExtra("PLAYER_NAME","J2");
-                context.startActivity(gameIntent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Début d'une nouvelle partie 2 joueur");
+                builder.setMessage("Veuillez entrer votre nom de joueur : ");
+
+                final EditText editText_dialog = new EditText(getActivity());
+                builder.setView(editText_dialog);
+
+                builder.setPositiveButton("Commencer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name_player = editText_dialog.getText().toString();
+
+
+                        Intent gameIntent = new Intent(context, MultiPlayerGameManager.class);
+                        gameIntent.putExtra("ArrayList", tab_send);
+                        gameIntent.putExtra("PLAYER_NAME",name_player);
+                        context.startActivity(gameIntent);
+                    }
+                });
+                builder.show();
 
                 /*Intent intent = new Intent();
                 intent.setAction(android.content.Intent.ACTION_VIEW);
@@ -345,7 +379,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         Random random = new Random();
 
         for (int i = 0; i < 4; i++) {
-            tab_jeux.add(random.nextInt(5));
+            tab_jeux.add(random.nextInt(6));
         }
 
         return tab_jeux;

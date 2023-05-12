@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.Form;
 
 import android.app.Activity;
 import android.content.Context;

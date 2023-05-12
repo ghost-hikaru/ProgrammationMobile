@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -44,6 +47,8 @@ public class Defi_Blindtest extends Activity {
     private boolean isPlaying = false;
     private MediaPlayer mediaPlayer;
     private boolean fromFile;
+    ArrayList<Integer> tab_game;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +85,15 @@ public class Defi_Blindtest extends Activity {
                         Intent intent;
                         if(mode == 1){
                             intent = new Intent(Defi_Blindtest.this, TrainingGameManager.class);
-                        }else {
+                        }else if(mode == 2) {
+                            intent = new Intent(Defi_Blindtest.this, MultiPlayerGameManager.class);
+                        }else{
                             intent = new Intent(Defi_Blindtest.this, OnePlayerGameManager.class);
                         }
                         intent.putExtra("PLAYER_NAME", current_name);
                         intent.putExtra("PLAYER_SCORE", current_score);
                         intent.putExtra("CURRENT_DEFIS", nb_defi);
+                        intent.putExtra("ArrayList",tab_game);
                         startActivity(intent);
                     }
                 });
@@ -104,6 +112,7 @@ public class Defi_Blindtest extends Activity {
         current_name = intent.getStringExtra("PLAYER_NAME");
         current_score = intent.getIntExtra("PLAYER_SCORE", 0);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
 
         text_name_player = (TextView) findViewById(R.id.namePlayer_textview_training);
         text_name_player.setText(current_name);

@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.LeaderBoard;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.esir.Main.MainActivity;
 import fr.esir.progm.wifidirectdemo.R;
 
 

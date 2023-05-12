@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.End;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.esir.LeaderBoard.Leaderbord;
+import fr.esir.Main.MainActivity;
+import fr.esir.progm.wifidirectdemo.DeviceListFragment;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -122,4 +125,5 @@ public class EndGameActivity extends Activity {
             mediaPlayer.release();
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.Main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,7 +29,7 @@ import fr.esir.progm.wifidirectdemo.R;
 
 public class SettingGameActivity extends Activity implements WifiP2pManager.ChannelListener, DeviceListFragment.DeviceActionListener {
     Button onOff,discover;
-    public static final String TAG = "fr.esir.game.SettingGameActivity";
+    public static final String TAG = "fr.esir.Main.SettingGameActivity";
 
     /**
      * WIFI declaration

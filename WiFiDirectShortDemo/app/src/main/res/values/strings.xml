@@ -16,6 +16,7 @@
     <string name="label_peers">Appareils disponibles</string>
     <string name="retour_au_menu">Retour au menu</string>
     <string name="score_final_default">Score final : default</string>
+    <string name="winner_final_default">Vainqueur : default</string>
     <string name="player_default">player default</string>
     <string name="score">Score</string>
     <string name="name_player">name_player</string>
