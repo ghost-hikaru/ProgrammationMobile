@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.LeaderBoard;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Classe fr.esir.game.Leaderbord, permet de gérer le leaderboard
+ * Classe fr.esir.LeaderBoard.Leaderbord, permet de gérer le leaderboard
  */
 public class Leaderbord {
 
@@ -24,7 +24,7 @@ public class Leaderbord {
     Activity Ctx;
 
     /**
-     * Constructeur de la classe fr.esir.game.Leaderbord
+     * Constructeur de la classe fr.esir.LeaderBoard.Leaderbord
      * @param Ctx Contexte de l'activité
      */
     public Leaderbord(Activity Ctx){

@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.Form;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;

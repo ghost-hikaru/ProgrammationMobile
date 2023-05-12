@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.manager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,14 @@ import android.os.Bundle;
 
 import java.io.IOException;
 import java.util.Random;
+
+import fr.esir.game.Defi_Blindtest;
+import fr.esir.game.Defi_Dessin;
+import fr.esir.game.Defi_Questions;
+import fr.esir.game.Defi_Secouer;
+import fr.esir.game.Defi_compass;
+import fr.esir.game.Defi_slide;
+import fr.esir.End.EndGameActivity;
 
 
 public class OnePlayerGameManager extends Activity{

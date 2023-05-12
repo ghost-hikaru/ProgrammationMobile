@@ -1,4 +1,4 @@
-package fr.esir.game;
+package fr.esir.manager;
 
 import android.app.Activity;
 
@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import fr.esir.LeaderBoard.Leaderbord;
 
 public class Player {
     Activity Ctx;

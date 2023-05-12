@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -31,6 +34,8 @@ public class Defi_slide extends AppCompatActivity {
     private ArrayList<String> mouvement_tab_ref = new ArrayList<String>();
     private SwipeGestureDetector gestureDetector;
     private long startTime;
+    ArrayList<Integer> tab_game;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class Defi_slide extends AppCompatActivity {
     public void initAff(){
         Intent intent = getIntent();
         mode = intent.getIntExtra("MODE",0);
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
 
         text_name_player = (TextView) findViewById(R.id.namePlayer_textview_compass);
         player_name = intent.getStringExtra("PLAYER_NAME");
@@ -169,6 +175,9 @@ public class Defi_slide extends AppCompatActivity {
                     Intent intent;
                     if(mode == 1){
                         intent = new Intent(Defi_slide.this, TrainingGameManager.class);
+                    }else if(mode == 2) {
+                        intent = new Intent(Defi_slide.this, MultiPlayerGameManager.class);
+                        intent.putExtra("ArrayList",tab_game);
                     }else {
                         intent = new Intent(Defi_slide.this, OnePlayerGameManager.class);
                     }
