@@ -2,6 +2,7 @@ package fr.esir.Form;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import fr.esir.Main.MainActivity;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -30,6 +33,15 @@ public class AddChallengeActivity extends Activity {
             public void onClick(View view) {
                 validation_form();
                 finish();
+            }
+        });
+
+        Button back_but = (Button) findViewById(R.id.back_button_add_challenge);
+        back_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddChallengeActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
