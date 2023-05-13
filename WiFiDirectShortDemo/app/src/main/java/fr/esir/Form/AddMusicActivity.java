@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import fr.esir.Main.MainActivity;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -42,6 +44,15 @@ public class AddMusicActivity extends AppCompatActivity {
                 requestFileIntent = new Intent(Intent.ACTION_PICK);
                 requestFileIntent.setType("audio/mp3");
                 requestFile();
+            }
+        });
+
+        Button back_but = (Button) findViewById(R.id.back_button_add_music);
+        back_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddMusicActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
