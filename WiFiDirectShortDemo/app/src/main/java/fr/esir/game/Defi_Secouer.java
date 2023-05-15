@@ -139,7 +139,14 @@ public class Defi_Secouer extends AppCompatActivity {
                             builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Defi_Secouer.this, Defi_Secouer.class);
+                                    if (mode == 1) {
+                                        intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
+                                    }else if(mode == 2) {
+                                        intent = new Intent(Defi_Secouer.this, MultiPlayerGameManager.class);
+                                        intent.putExtra("ArrayList",tab_game);
+                                    }else {
+                                        intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
+                                    }
                                     intent.putExtra("PLAYER_NAME", player_name);
                                     intent.putExtra("PLAYER_SCORE", score);
                                     intent.putExtra("CURRENT_DEFIS", nb_defi);
