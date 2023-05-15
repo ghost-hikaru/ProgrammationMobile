@@ -21,4 +21,11 @@ Ce projet est une application mobile, composé de plusieurs petit jeux (6 mini-j
 - Possibilité d'ajouter des musiques au blind test
 
 ## Vidéo de l'application 
-![](lien de la vidéo) 
+[Videos](https://drive.google.com/drive/folders/1EBb-mBtcVtQ5IW6Fk6Wjk9vfqqUN34y_?usp=sharing)
+
+## Configuration du projet
+Clonez ce dépôt GitHub sur votre machine locale :
+```
+https://github.com/ghost-hikaru/ProgrammationMobile.git
+```
+
