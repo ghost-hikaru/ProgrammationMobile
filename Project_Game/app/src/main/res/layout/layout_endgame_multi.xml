@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/grey">
+<RelativeLayout
+    android:id="@+id/finalscore_layout_endgame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
+    android:background="@color/teal_700">
+
+    <TextView
+        android:id="@+id/finalscore_textview_endgame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/winner_final_default"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+</RelativeLayout>
+
+<LinearLayout
+    android:id="@+id/layout_image"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/finalscore_layout_endgame"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/player_icon_endgame"
+            android:layout_width="107dp"
+            android:layout_height="156dp"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/namePlayer_textview_endgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player_default"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel" />
+
+        <TextView
+            android:id="@+id/scorePlayer_textview_endgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_final_default"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/player_icon_endgame2"
+            android:layout_width="107dp"
+            android:layout_height="156dp"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/namePlayer_textview_endgame2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player_default"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel" />
+
+        <TextView
+            android:id="@+id/scorePlayer_textview_endgame2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_final_default"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font_pixel" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+<Button
+    android:id="@+id/echange_button_endgame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Echange des scores"
+    android:textColor="@color/white"
+    android:fontFamily="@font/font_pixel"
+    android:textStyle="bold"
+    android:layout_below="@id/layout_image"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="25dp"/>
+
+<RelativeLayout
+    android:id="@+id/leaderbord_layout_endgame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
+    android:layout_below="@+id/echange_button_endgame"
+    android:background="@color/teal_700">
+
+    <TextView
+        android:id="@+id/leaderbord_textview_endgame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/score"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/font_pixel"
+        android:id="@+id/leaderbord_listview_endgame"
+        android:layout_below="@+id/leaderbord_textview_endgame"
+        android:layout_marginTop="10dp"
+        />
+</RelativeLayout>
+
+<Button
+    android:id="@+id/return_button_endgame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/leaderbord_layout_endgame"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
+    android:textColor="@color/black"
+    android:background="@color/red"
+    android:fontFamily="@font/font_pixel"
+    android:text="@string/retour_au_menu" />
+
+</RelativeLayout>

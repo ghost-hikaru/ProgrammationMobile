@@ -2,5 +2,48 @@
 <resources>
     <string-array name="mp3_files">
         <item>everytime_we_touch</item>
+        <item>hooked_on_a_feeling</item>
+        <item>dance_monkey</item>
+        <item>i_belong_to_you</item>
+        <item>glorious</item>
+        <item>hey_now</item>
+        <item>on_top_of_the_world</item>
+        <item>high_on_life</item>
+        <item>dont_call_me_up</item>
+        <item>open_up</item>
+        <item>its_time</item>
+        <item>hurt_somebody</item>
+        <item>part_of_me</item>
+        <item>treat_you_better</item>
+        <item>let_you_down</item>
+        <item>love_runs_out</item>
+        <item>marchin_on</item>
+        <item>miracles</item>
+        <item>rooftop</item>
+        <item>secrets</item>
+        <item>victory</item>
+        <item>animals</item>
+        <item>diamonds</item>
+        <item>human</item>
+        <item>happyland</item>
+        <item>revolution</item>
+        <item>sweet_dreams</item>
+        <item>titanium</item>
+        <item>best_of_you</item>
+        <item>cant_hold_us</item>
+        <item>dance_for_me</item>
+        <item>find_me</item>
+        <item>happiest_year</item>
+        <item>high_hopes</item>
+        <item>hold_back_the_river</item>
+        <item>i_need</item>
+        <item>poker_face</item>
+        <item>shape_of_you</item>
+        <item>she_wolf</item>
+        <item>someone_you_loved</item>
+        <item>sweet_but_psycho</item>
+        <item>we_belong</item>
+        <item>we_can_do_better</item>
+        <item>wherever_i_go</item>
     </string-array>
 </resources>

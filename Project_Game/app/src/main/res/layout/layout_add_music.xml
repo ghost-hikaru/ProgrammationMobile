@@ -1,29 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/grey"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_add_music">
 
     <TextView
-        android:id="@+id/title_textview_add_challenge"
+        android:id="@+id/title_textview_add_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ajout d'une musique"
-        android:layout_gravity="center"
-        android:textSize="35sp"
-        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="32sp"
+        android:textColor="@color/black"
         android:fontFamily="@font/font_pixel"
         android:textStyle="bold"/>
 
-    <Button
-        android:layout_marginTop="40dp"
-        android:id="@+id/submit_button_add_music"
+    <TextView
+        android:id="@+id/cat_info_textview_add_challenge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:fontFamily="@font/font_pixel"
-        android:text="Ajouter une musique"/>
+        android:text="Aller chercher votre fichier MP3"
+        android:layout_below="@id/title_textview_add_music"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/submit_button_add_music"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/font_pixel"
+        android:background="@color/red"
+        android:radius="20dp"
+        android:text="Ouvrir"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="400dp"
+        android:layout_below="@id/cat_info_textview_add_challenge"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:id="@+id/back_button_add_music"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/font_pixel"
+        android:background="@color/red"
+        android:radius="20dp"
+        android:text="Menu Principal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/submit_button_add_music"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>

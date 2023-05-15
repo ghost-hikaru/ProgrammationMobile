@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -37,6 +42,8 @@ public class Defi_Secouer extends AppCompatActivity {
     private int mode;
     private long startTime;
     private float SHAKE_THRESHOLD = 50.0f;
+    ArrayList<Integer> tab_game;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,7 @@ public class Defi_Secouer extends AppCompatActivity {
     }
     private void initAff(){
         mode = intent.getIntExtra("MODE",0);
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
 
         shakeProgressBar = findViewById(R.id.shakeProgressBar_shake);
         NbSecouage = findViewById(R.id.nombreDeSecouage_shake);
@@ -93,7 +101,7 @@ public class Defi_Secouer extends AppCompatActivity {
                 double accelerationMagnitude = Math.sqrt(Math.pow(accelerationX, 2) + Math.pow(accelerationY, 2) + Math.pow(accelerationZ, 2));
                 if (accelerationMagnitude > SHAKE_THRESHOLD) {
                     // Augmenter la valeur de la barre en fonction de l'accélération
-                    progress += (int) (accelerationMagnitude / SHAKE_THRESHOLD * 10);
+                    progress += (int) (accelerationMagnitude / SHAKE_THRESHOLD * 3);
                     if (progress >= 500) {
                         long endTime = System.nanoTime();
                         // Calculation of elapsed time in seconds
@@ -101,7 +109,7 @@ public class Defi_Secouer extends AppCompatActivity {
                         SHAKE_THRESHOLD = 5000000000000000f;
                         progress = 500;
                         AlertDialog.Builder builder;
-                        if (elapsedTimeMs < 10000) {
+                        if (elapsedTimeMs < 10) {
                             score++;
                             builder = new AlertDialog.Builder(Defi_Secouer.this);
                             builder.setTitle("Bravo, vous avez réussi !\nVous avez mis "+elapsedTimeMs+" s");
@@ -112,7 +120,10 @@ public class Defi_Secouer extends AppCompatActivity {
                                     Intent intent;
                                     if (mode == 1) {
                                         intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
-                                    } else {
+                                    }else if(mode == 2) {
+                                        intent = new Intent(Defi_Secouer.this, MultiPlayerGameManager.class);
+                                        intent.putExtra("ArrayList",tab_game);
+                                    }else {
                                         intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
                                     }
                                     intent.putExtra("PLAYER_NAME", player_name);
@@ -128,7 +139,14 @@ public class Defi_Secouer extends AppCompatActivity {
                             builder.setPositiveButton("Continuer", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(Defi_Secouer.this, Defi_Secouer.class);
+                                    if (mode == 1) {
+                                        intent = new Intent(Defi_Secouer.this, TrainingGameManager.class);
+                                    }else if(mode == 2) {
+                                        intent = new Intent(Defi_Secouer.this, MultiPlayerGameManager.class);
+                                        intent.putExtra("ArrayList",tab_game);
+                                    }else {
+                                        intent = new Intent(Defi_Secouer.this, OnePlayerGameManager.class);
+                                    }
                                     intent.putExtra("PLAYER_NAME", player_name);
                                     intent.putExtra("PLAYER_SCORE", score);
                                     intent.putExtra("CURRENT_DEFIS", nb_defi);

@@ -17,8 +17,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -39,6 +43,8 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
     // target
     private int targetDegree;
     private long startTime;
+    ArrayList<Integer> tab_game;
+
 
 
 
@@ -53,6 +59,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
     private void initAff() {
         Intent intent = getIntent();
         mode = intent.getIntExtra("MODE",0);
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
         text_name_player = (TextView) findViewById(R.id.namePlayer_textview_compass);
         player_name = intent.getStringExtra("PLAYER_NAME");
         text_name_player.setText(player_name);
@@ -122,7 +129,7 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
             // Calculation of elapsed time in seconds
             long elapsedTimeMs = (endTime - startTime) / 1000000000;
             AlertDialog.Builder builder;
-            if (elapsedTimeMs < 10000) {
+            if (elapsedTimeMs < 10) {
                 onPause();
                 score += 1;
                 builder = new AlertDialog.Builder(Defi_compass.this);
@@ -133,7 +140,10 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
                         Intent intent;
                         if (mode == 1) {
                             intent = new Intent(Defi_compass.this, TrainingGameManager.class);
-                        } else {
+                        }else if(mode == 2) {
+                            intent = new Intent(Defi_compass.this, MultiPlayerGameManager.class);
+                            intent.putExtra("ArrayList",tab_game);
+                        }else {
                             intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
                         }
                         intent.putExtra("PLAYER_NAME", player_name);
@@ -152,7 +162,10 @@ public class Defi_compass extends AppCompatActivity implements SensorEventListen
                         Intent intent;
                         if (mode == 1) {
                             intent = new Intent(Defi_compass.this, TrainingGameManager.class);
-                        } else {
+                        } else if(mode == 2) {
+                            intent = new Intent(Defi_compass.this, MultiPlayerGameManager.class);
+                            intent.putExtra("ArrayList",tab_game);
+                        }else {
                             intent = new Intent(Defi_compass.this, OnePlayerGameManager.class);
                         }
                         intent.putExtra("PLAYER_NAME", player_name);

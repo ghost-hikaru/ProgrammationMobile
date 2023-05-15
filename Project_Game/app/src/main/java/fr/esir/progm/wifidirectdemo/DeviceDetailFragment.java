@@ -16,10 +16,14 @@
 
 package fr.esir.progm.wifidirectdemo;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -28,21 +32,36 @@ import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Random;
+
+import fr.esir.manager.MultiPlayerGameManager;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -55,10 +74,16 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
     private WifiP2pDevice device;
     private WifiP2pInfo info;
     ProgressDialog progressDialog = null;
+    private ArrayList<Integer> tab_send;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        try {
+            tab_send = generateGame();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -103,11 +128,54 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
                     @Override
                     public void onClick(View v) {
-                        // Allow user to pick an image from Gallery or other
-                        // registered apps
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, CHOOSE_FILE_RESULT_CODE);
+
+                        String fileName = "test.txt";
+                        String fileContent = "JE SUIS UN TEST";
+                        File file = new File(getActivity().getExternalFilesDir(null), fileName);
+
+                        try (FileOutputStream fos = new FileOutputStream(file)) {
+                            fos.write(fileContent.getBytes());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Get the URI of the file
+                        Uri fileUri = FileProvider.getUriForFile(getContext(),
+                                "com.example.android.wifidirect.fileprovider", file);
+
+                        System.out.println("File URI: " + fileUri.toString());
+
+                        Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
+                        serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
+                        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, fileUri.toString());
+                        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+                        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
+                        getActivity().startService(serviceIntent);
+
+                        System.out.println("Tableau envoyé à J1 :");
+                        showContent(tab_send);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Début d'une nouvelle partie 2 joueur");
+                        builder.setMessage("Veuillez entrer votre nom de joueur : ");
+
+                        final EditText editText_dialog = new EditText(getActivity());
+                        builder.setView(editText_dialog);
+
+                        builder.setPositiveButton("Commencer", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String name_player = editText_dialog.getText().toString();
+
+
+                                Intent gameIntent = new Intent(getActivity(), MultiPlayerGameManager.class);
+                                gameIntent.putExtra("ArrayList", tab_send);
+                                gameIntent.putExtra("PLAYER_NAME", name_player);
+                                getActivity().startActivity(gameIntent);
+                            }
+                        });
+                        builder.show();
+
                     }
                 });
 
@@ -116,18 +184,43 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         // User has picked an image. Transfer it to group owner i.e peer using FileTransferService.
-        Uri uri = data.getData();
+        String fileName = "test.txt";
+        String fileContent = "JE SUIS UN TEST";
+
+        URI uri = null;
+        try {
+            // Create a new file
+            File file = new File(fileName);
+
+            // Write the content to the file
+            FileWriter writer = new FileWriter(file);
+            writer.write(fileContent);
+            writer.close();
+
+            // Get the URI of the file
+            uri = file.toURI();
+
+            System.out.println("File URI: " + uri.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         statusText.setText("Sending: " + uri);
         Log.d(WifiDirectActivity.TAG, "Intent----------- " + uri);
         Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
-        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
+        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri);
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
         getActivity().startService(serviceIntent);
+
+        // Start the MultiPlayerGameManager activity after file transfer
+        //Intent gameIntent = new Intent(getActivity(), MultiPlayerGameManager.class);
+        //gameIntent.putExtra("ArrayList", tab_send);
+        //getActivity().startActivity(gameIntent);
     }
 
     @Override
@@ -200,7 +293,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
      * A simple server socket that accepts connection and writes some data on
      * the stream.
      */
-    public static class FileServerAsyncTask extends AsyncTask<Void, Void, String> {
+    public class FileServerAsyncTask extends AsyncTask<Void, Void, String> {
 
         private Context context;
         private TextView statusText;
@@ -221,10 +314,19 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 Log.d(WifiDirectActivity.TAG, "Server: Socket opened");
                 Socket client = serverSocket.accept();
                 Log.d(WifiDirectActivity.TAG, "Server: connection done");
-                final File f = new File(context.getExternalFilesDir("received"),
-                        "wifip2pshared-" + System.currentTimeMillis()
-                        + ".jpg");
+                final File f = new File(context.getExternalFilesDir("received"), "wifip2pshared-" + System.currentTimeMillis()
+                        + ".txt");
 
+                try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //System.out.println("Contenue du fichier fais en back : "+showContent(f.getName()));
                 File dirs = new File(f.getParent());
                 if (!dirs.exists())
                     dirs.mkdirs();
@@ -249,17 +351,39 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         protected void onPostExecute(String result) {
             if (result != null) {
                 statusText.setText("File copied - " + result);
-
                 File recvFile = new File(result);
+
                 Uri fileUri = FileProvider.getUriForFile(
                                 context,
                                 "com.example.android.wifidirect.fileprovider",
                                 recvFile);
-                Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
-                intent.setDataAndType(fileUri, "image/*");
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                context.startActivity(intent);
+
+
+
+
+                System.out.println("Tableau envoyé à J2 : ");
+                showContent(tab_send);
+                // Start the MultiPlayerGameManager activity after file transfer
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Début d'une nouvelle partie 2 joueur");
+                builder.setMessage("Veuillez entrer votre nom de joueur : ");
+
+                final EditText editText_dialog = new EditText(getActivity());
+                builder.setView(editText_dialog);
+
+                builder.setPositiveButton("Commencer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name_player = editText_dialog.getText().toString();
+
+
+                        Intent gameIntent = new Intent(context, MultiPlayerGameManager.class);
+                        gameIntent.putExtra("ArrayList", tab_send);
+                        gameIntent.putExtra("PLAYER_NAME",name_player);
+                        context.startActivity(gameIntent);
+                    }
+                });
+                builder.show();
             }
 
         }
@@ -273,6 +397,12 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             statusText.setText("Opening a server socket");
         }
 
+        public void showContent(ArrayList<Integer> tab){
+            for(int i=0;i<tab.size();i++){
+                System.out.println(tab.get(i));
+            }
+        }
+
     }
 
     public static boolean copyFile(InputStream inputStream, OutputStream out) {
@@ -281,7 +411,6 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         try {
             while ((len = inputStream.read(buf)) != -1) {
                 out.write(buf, 0, len);
-
             }
             out.close();
             inputStream.close();
@@ -290,6 +419,24 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             return false;
         }
         return true;
+    }
+
+    public ArrayList<Integer> generateGame() throws IOException {
+        ArrayList<Integer> tab_jeux = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < 4; i++) {
+            tab_jeux.add(random.nextInt(6));
+        }
+
+        return tab_jeux;
+
+    }
+
+    public void showContent(ArrayList<Integer> tab){
+        for(int i=0;i<tab.size();i++){
+            System.out.println(tab.get(i));
+        }
     }
 
 }

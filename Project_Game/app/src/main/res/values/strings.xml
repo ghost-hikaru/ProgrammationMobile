@@ -4,7 +4,7 @@
     <string name="discover_peers_button">Discover</string>
     <string name="connect_peer_button">Connect</string>
     <string name="disconnect_peer_button">Disconnect</string>
-    <string name="get_file_button">Launch Gallery</string>
+    <string name="get_file_button">Commencer le jeu</string>
     <string name="empty"></string>
     <string name="yes">yes</string>
     <string name="no">no</string>
@@ -16,6 +16,7 @@
     <string name="label_peers">Appareils disponibles</string>
     <string name="retour_au_menu">Retour au menu</string>
     <string name="score_final_default">Score final : default</string>
+    <string name="winner_final_default">Vainqueur : default</string>
     <string name="player_default">player default</string>
     <string name="score">Score</string>
     <string name="name_player">name_player</string>

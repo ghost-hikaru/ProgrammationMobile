@@ -2,7 +2,6 @@ package fr.esir.game;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -45,6 +47,8 @@ public class Defi_Blindtest extends Activity {
     private boolean isPlaying = false;
     private MediaPlayer mediaPlayer;
     private boolean fromFile;
+    ArrayList<Integer> tab_game;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +85,15 @@ public class Defi_Blindtest extends Activity {
                         Intent intent;
                         if(mode == 1){
                             intent = new Intent(Defi_Blindtest.this, TrainingGameManager.class);
-                        }else {
+                        }else if(mode == 2) {
+                            intent = new Intent(Defi_Blindtest.this, MultiPlayerGameManager.class);
+                        }else{
                             intent = new Intent(Defi_Blindtest.this, OnePlayerGameManager.class);
                         }
                         intent.putExtra("PLAYER_NAME", current_name);
                         intent.putExtra("PLAYER_SCORE", current_score);
                         intent.putExtra("CURRENT_DEFIS", nb_defi);
+                        intent.putExtra("ArrayList",tab_game);
                         startActivity(intent);
                     }
                 });
@@ -105,6 +112,7 @@ public class Defi_Blindtest extends Activity {
         current_name = intent.getStringExtra("PLAYER_NAME");
         current_score = intent.getIntExtra("PLAYER_SCORE", 0);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
 
         text_name_player = (TextView) findViewById(R.id.namePlayer_textview_training);
         text_name_player.setText(current_name);
@@ -124,7 +132,6 @@ public class Defi_Blindtest extends Activity {
         Random rand = new Random();
         if (rand.nextInt(2) == 1) {
             selectRandomFromFilesDir();
-            fromFile = true;
         }
         else {
             selectRandomFromRawDir();
@@ -142,10 +149,12 @@ public class Defi_Blindtest extends Activity {
                     play_button.setText(play_music_string);
                 }
                 else {
-                    if (fromFile)
+                    if (fromFile) {
                         playMp3(uri);
-                    else
+                    }
+                    else{
                         playMp3(resId);
+                    }
                     isPlaying = true;
                     play_button.setText(stop_music_string);
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -186,7 +195,7 @@ public class Defi_Blindtest extends Activity {
         List<File> mp3Files = new ArrayList<>();
         for (File file : files) {
             if (file.isFile() && file.getName().endsWith(".mp3")) {
-                System.out.println("Fichier MP3 trouvé : " + file.getName());
+                fromFile = true;
                 mp3Files.add(file);
             }
         }
@@ -194,11 +203,9 @@ public class Defi_Blindtest extends Activity {
         if (mp3Files.isEmpty()) {
             // Aucun fichier MP3 trouvé, gestion de l'erreur ou sortie de la méthode
             fromFile = false;
-            System.out.println("Aucun fichier MP3 trouvé dans le dossier files");
             selectRandomFromRawDir();
             return;
         }
-
         Random random = new Random();
         int randomIndex = random.nextInt(mp3Files.size());
         File randomMp3File = mp3Files.get(randomIndex);
@@ -214,7 +221,6 @@ public class Defi_Blindtest extends Activity {
     private void selectRandomFromRawDir() {
         Resources resources = this.getResources();
         String packageName = this.getPackageName();
-        System.out.println("Package name : " + packageName);
 
         int resourceId = resources.getIdentifier("mp3_files", "array", packageName);
         String[] mp3Files = resources.getStringArray(resourceId);

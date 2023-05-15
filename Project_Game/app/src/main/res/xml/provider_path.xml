@@ -3,5 +3,6 @@
     <external-path
         name="external_files"
         path="." />
+    <files-path name="gameway" path="." />
     <!-- Ajoutez d'autres chemins d'accès pour d'autres emplacements de fichiers si nécessaire -->
 </paths>

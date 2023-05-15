@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
@@ -51,6 +53,8 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
     private int nb_defi;
     private int nb_try;
     private long startTime;
+    ArrayList<Integer> tab_game;
+
 
 
     @Override
@@ -133,6 +137,9 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                             Intent intent;
                             if(mode == 1){
                                 intent = new Intent(Defi_Dessin.this, TrainingGameManager.class);
+                            }else if(mode == 2) {
+                                intent = new Intent(Defi_Dessin.this, MultiPlayerGameManager.class);
+                                intent.putExtra("ArrayList",tab_game);
                             }else {
                                 intent = new Intent(Defi_Dessin.this, OnePlayerGameManager.class);
                             }
@@ -159,6 +166,9 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
                                 Intent intent;
                                 if(mode == 1){
                                     intent = new Intent(Defi_Dessin.this, TrainingGameManager.class);
+                                }else if(mode == 2) {
+                                    intent = new Intent(Defi_Dessin.this, MultiPlayerGameManager.class);
+                                    intent.putExtra("ArrayList", tab_game);
                                 }else {
                                     intent = new Intent(Defi_Dessin.this, OnePlayerGameManager.class);
                                 }
@@ -195,6 +205,8 @@ public class Defi_Dessin extends AppCompatActivity implements View.OnTouchListen
         text_number_defi = (TextView) findViewById(R.id.title_defi_textview_draw);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);
         text_number_defi.setText(current_defi_string + String.valueOf(nb_defi));
+
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
 
         text_score_player = (TextView) findViewById(R.id.scorePlayer_textview_draw);
         score = intent.getIntExtra("PLAYER_SCORE", 0);

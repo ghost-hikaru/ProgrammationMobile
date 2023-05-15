@@ -18,16 +18,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import fr.esir.manager.MultiPlayerGameManager;
+import fr.esir.manager.OnePlayerGameManager;
+import fr.esir.manager.TrainingGameManager;
 import fr.esir.progm.wifidirectdemo.R;
 
 
 public class Defi_Questions extends Activity{
 
-    private String categorie;
     private String question;
     private String answer_player;
     private String answer;
-    private Activity Ctx;
     private String challenge_file = "challenge.csv";
     private TextView text_name_player;
     private TextView text_score_player;
@@ -40,6 +41,8 @@ public class Defi_Questions extends Activity{
     private TextView content_defi;
     private EditText edit_answer;
     private Button valid_button;
+    ArrayList<Integer> tab_game;
+
 
 
     @Override
@@ -47,6 +50,7 @@ public class Defi_Questions extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_question);
         InitAff();
+        System.out.println("Init aff fait ");
         long startTime = System.nanoTime();
         valid_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +61,7 @@ public class Defi_Questions extends Activity{
                 answer_player = edit_answer.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Defi_Questions.this);
                 builder.setTitle("Résultat de la question : ");
-                if (answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll(" ", ""))){
+                if (checkAnswer(answer_player, answer)){
                     builder.setMessage("Bravo vous avez entré la bonne réponse\nVous avez mis "+elapsedTimeMs+" s");
                     current_score += 1;
                 }
@@ -71,6 +75,9 @@ public class Defi_Questions extends Activity{
                         Intent intent;
                         if(mode == 1){
                             intent = new Intent(Defi_Questions.this, TrainingGameManager.class);
+                        }else if(mode == 2) {
+                            intent = new Intent(Defi_Questions.this, MultiPlayerGameManager.class);
+                            intent.putExtra("ArrayList",tab_game);
                         }else {
                             intent = new Intent(Defi_Questions.this, OnePlayerGameManager.class);
                         }
@@ -88,7 +95,7 @@ public class Defi_Questions extends Activity{
     public void InitAff(){
         Intent intent = getIntent();
         mode = intent.getIntExtra("MODE",0);
-
+        tab_game = getIntent().getIntegerArrayListExtra("ArrayList");
         current_name = intent.getStringExtra("PLAYER_NAME");
         current_score = intent.getIntExtra("PLAYER_SCORE", 0);
         nb_defi = intent.getIntExtra("CURRENT_DEFIS", 0);
@@ -106,10 +113,8 @@ public class Defi_Questions extends Activity{
         }else{
             text_score_player.setText(String.valueOf(current_score));
         }
-
         this.challenge_file = read();
         LoadDefi();
-        System.out.println("Défi chargé");
         String affQuestion = "Question :\n"+question;
 
         content_defi = (TextView) findViewById(R.id.content_defi_textview_training);
@@ -176,5 +181,35 @@ public class Defi_Questions extends Activity{
     public static int randomInt(int max) {
         Random rand = new Random();
         return rand.nextInt(max);
+    }
+    public void addPrexife(ArrayList<String> list){
+        list.add("le");
+        list.add("la");
+        list.add("les");
+        list.add("l'");
+        list.add("un");
+        list.add("une");
+        list.add("des");
+        list.add("d'");
+        list.add("du");
+        list.add("de");
+    }
+
+    public boolean checkAnswer(String answer_player, String answer) {
+       ArrayList<String> prefixe = new ArrayList<String>();
+       addPrexife(prefixe);
+       if (answer_player.split(" ").length > 1 && prefixe.contains(answer_player.split(" ")[0].toLowerCase())){
+            answer_player = answer_player.substring(answer_player.indexOf(" ")+1);
+
+       }
+
+       if (answer.split(" ").length > 1 && answer_player.split(" ").length == 1){
+            for (String answer_spli : answer.split(" ")){
+                if (answer_spli.toLowerCase().equals(answer_player.toLowerCase())){
+                    return true;
+                }
+            }
+       }
+       return answer_player.toLowerCase().replaceAll(" ", "").equals(answer.toLowerCase().replaceAll(" ", ""));
     }
 }
