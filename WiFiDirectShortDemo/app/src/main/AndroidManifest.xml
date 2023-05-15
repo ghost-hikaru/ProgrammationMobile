@@ -26,30 +26,30 @@
         <activity
             android:name="fr.esir.Main.MainActivity"
             android:label="@string/app_name"
-            android:exported="true">
+            android:exported="true" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fr.esir.game.Defi_Dessin"/>
-        <activity android:name="fr.esir.game.Defi_Questions"/>
-        <activity android:name="fr.esir.Form.AddChallengeActivity" />
-        <activity android:name="fr.esir.Main.SettingGameActivity" />
-        <activity android:name="fr.esir.manager.OnePlayerGameManager"/>
-        <activity android:name="fr.esir.manager.MultiPlayerGameManager"/>
-        <activity android:name="fr.esir.manager.TrainingGameManager"/>
-        <activity android:name="fr.esir.End.EndGameActivity"/>
-        <activity android:name="fr.esir.End.EndGameMultiActivity"/>
-        <activity android:name="fr.esir.game.Defi_Secouer"/>
-        <activity android:name="fr.esir.game.Defi_compass"/>
-        <activity android:name="fr.esir.game.Defi_slide"/>
-        <activity android:name="fr.esir.LeaderBoard.LeaderBoardActivity"/>
-        <activity android:name="fr.esir.game.Defi_Blindtest"/>
-        <activity android:name="fr.esir.Form.AddMusicActivity"/>
+        <activity android:name="fr.esir.game.Defi_Dessin" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.game.Defi_Questions" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.Form.AddChallengeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.Main.SettingGameActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.manager.OnePlayerGameManager" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.manager.MultiPlayerGameManager" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.manager.TrainingGameManager" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.End.EndGameActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.End.EndGameMultiActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.game.Defi_Secouer" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.game.Defi_compass" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.game.Defi_slide" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.LeaderBoard.LeaderBoardActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.game.Defi_Blindtest" android:screenOrientation="portrait"/>
+        <activity android:name="fr.esir.Form.AddMusicActivity" android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".WifiDirectActivity"/>
+            android:name=".WifiDirectActivity" android:screenOrientation="portrait"/>
             <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="com.example.android.wifidirect.fileprovider"
