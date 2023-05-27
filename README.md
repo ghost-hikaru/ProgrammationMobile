@@ -23,7 +23,9 @@ Chaque dossier contient un TP différent et toutes les informations nécessaires
     
 ## 🛠️ Install project    
 ```bash
-git clone https://github.com/ghost-hikaru/ProgrammationMobile.git
+git clone https://github.com/Slonev0/TourOfHeroAngular.git
+npm install 
+ng serve
 ```
 
 ## 🙇 Author
